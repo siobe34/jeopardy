@@ -1,12 +1,15 @@
 // Example model schema from the Drizzle docs
 // https://orm.drizzle.team/docs/sql-schema-declaration
 
-import { sql } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import {
-  bigint,
-  index,
+  int,
+  mysqlEnum,
   mysqlTableCreator,
+  serial,
+  text,
   timestamp,
+  uniqueIndex,
   varchar,
 } from "drizzle-orm/mysql-core";
 
@@ -18,17 +21,49 @@ import {
  */
 export const mysqlTable = mysqlTableCreator((name) => `jeopardy_${name}`);
 
-export const posts = mysqlTable(
-  "post",
+export const boards = mysqlTable(
+  "boards",
   {
-    id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
-    name: varchar("name", { length: 256 }),
-    createdAt: timestamp("created_at")
+    id: serial("id").primaryKey(),
+    userId: varchar("userId", { length: 256 }).notNull(),
+    name: text("name").notNull(),
+    status: mysqlEnum("status", ["active", "archived"]).default("active"),
+    createdAt: timestamp("createdAt")
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
     updatedAt: timestamp("updatedAt").onUpdateNow(),
   },
-  (example) => ({
-    nameIndex: index("name_idx").on(example.name),
-  })
+  (table) => ({
+    userIdx: uniqueIndex("user_idx").on(table.userId),
+  }),
 );
+
+export const boardsRelations = relations(boards, ({ many }) => ({
+  challenges: many(challenges),
+}));
+
+export const challenges = mysqlTable(
+  "challenges",
+  {
+    id: serial("id").primaryKey(),
+    boardId: int("boardId"),
+    question: text("question").notNull(),
+    answer: text("answer").notNull(),
+    category: text("category").notNull(),
+    points: int("points").notNull(),
+    createdAt: timestamp("createdAt")
+      .default(sql`CURRENT_TIMESTAMP`)
+      .notNull(),
+    updatedAt: timestamp("updatedAt").onUpdateNow(),
+  },
+  (table) => ({
+    boardIdx: uniqueIndex("board_idx").on(table.boardId),
+  }),
+);
+
+export const challengesRelations = relations(challenges, ({ one }) => ({
+  board: one(boards, {
+    fields: [challenges.boardId],
+    references: [boards.id],
+  }),
+}));
