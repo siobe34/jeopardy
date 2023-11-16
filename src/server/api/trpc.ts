@@ -6,7 +6,9 @@
  * TL;DR - This is where all the tRPC server stuff is created and plugged in. The pieces you will
  * need to use are documented accordingly near the end.
  */
-import { initTRPC } from "@trpc/server";
+import { clerkClient } from "@clerk/nextjs";
+import { decodeJwt, type Session } from "@clerk/nextjs/server";
+import { initTRPC, TRPCError } from "@trpc/server";
 import { type NextRequest } from "next/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
@@ -23,6 +25,7 @@ import { db } from "@/server/db";
 
 interface CreateContextOptions {
   headers: Headers;
+  session: Session | null;
 }
 
 /**
@@ -38,6 +41,7 @@ interface CreateContextOptions {
 export const createInnerTRPCContext = (opts: CreateContextOptions) => {
   return {
     headers: opts.headers,
+    session: opts.session,
     db,
   };
 };
@@ -48,11 +52,34 @@ export const createInnerTRPCContext = (opts: CreateContextOptions) => {
  *
  * @see https://trpc.io/docs/context
  */
-export const createTRPCContext = (opts: { req: NextRequest }) => {
+export const createTRPCContext = async (opts: { req: NextRequest }) => {
   // Fetch stuff that depends on the request
 
+  const sessionToken = opts.req.cookies.get("__session")?.value ?? "";
+
+  try {
+    // Decode the JWT to get the session ID
+    const decodedJwt = decodeJwt(sessionToken);
+
+    // Verify the session with Clerk to get the session object
+    const verifiedSession = await clerkClient.sessions.verifySession(
+      decodedJwt.payload.sid,
+      sessionToken,
+    );
+
+    // If the session is valid, return a context with the session
+    return createInnerTRPCContext({
+      headers: opts.req.headers,
+      session: verifiedSession,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+
+  // If the session is invalid, return a context with no session
   return createInnerTRPCContext({
     headers: opts.req.headers,
+    session: null,
   });
 };
 
@@ -100,3 +127,17 @@ export const createTRPCRouter = t.router;
  * are logged in.
  */
 export const publicProcedure = t.procedure;
+
+const enforceAuthentication = t.middleware(async ({ ctx, next }) => {
+  if (!ctx.session) {
+    throw new TRPCError({ code: "UNAUTHORIZED" });
+  }
+
+  return next({
+    ctx: {
+      session: ctx.session,
+    },
+  });
+});
+
+export const protectedProcedure = t.procedure.use(enforceAuthentication);
