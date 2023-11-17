@@ -69,3 +69,6 @@ export const challengesRelations = relations(challenges, ({ one }) => ({
     references: [boards.id],
   }),
 }));
+
+export type TNewBoard = typeof boards.$inferInsert;
+export type TNewChallenge = typeof boards.$inferInsert;
