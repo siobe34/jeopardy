@@ -1,3 +1,4 @@
+import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
@@ -9,19 +10,29 @@ export const boardRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const currentUserId = ctx.session.userId;
 
-      const newBoard = await ctx.db.insert(boards).values({
+      const addedBoard = await ctx.db.insert(boards).values({
         name: input.name,
         userId: currentUserId,
       });
 
-      // TODO: fix return, currently returns an ExecutedQuery
+      const newBoard = await ctx.db.query.boards.findFirst({
+        where: (table, { eq }) => eq(table.id, parseInt(addedBoard.insertId)),
+      });
+
+      if (!newBoard) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Unexpected error while trying to add new jeopardy board.",
+        });
+      }
+
       return newBoard;
     }),
   getByCurrentUser: protectedProcedure.query(async ({ ctx }) => {
     const currentUserId = ctx.session.userId;
 
     const boards = await ctx.db.query.boards.findMany({
-      where: (boards, { eq }) => eq(boards.userId, currentUserId),
+      where: (table, { eq }) => eq(table.userId, currentUserId),
     });
 
     return boards;
