@@ -1,9 +1,10 @@
 import "@/styles/globals.css";
 
-import { ClerkProvider } from "@clerk/nextjs";
+import { ClerkProvider, SignedIn } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
 import { cookies } from "next/headers";
 
+import { Header } from "@/app/_components/header";
 import { cn } from "@/lib/cn";
 import { TRPCReactProvider } from "@/trpc/react";
 
@@ -34,6 +35,9 @@ export default function RootLayout({
               "from-secondary via-background to-background bg-gradient-to-tr from-0% to-30%",
             )}
           >
+            <SignedIn>
+              <Header />
+            </SignedIn>
             <TRPCReactProvider cookies={cookies().toString()}>
               {children}
             </TRPCReactProvider>
