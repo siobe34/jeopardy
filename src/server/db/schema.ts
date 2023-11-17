@@ -3,13 +3,13 @@
 
 import { relations, sql } from "drizzle-orm";
 import {
+  index,
   int,
   mysqlEnum,
   mysqlTableCreator,
   serial,
   text,
   timestamp,
-  uniqueIndex,
   varchar,
 } from "drizzle-orm/mysql-core";
 
@@ -33,10 +33,10 @@ export const boards = mysqlTable(
     createdAt: timestamp("createdAt")
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
-    updatedAt: timestamp("updatedAt").notNull().onUpdateNow(),
+    updatedAt: timestamp("updatedAt").onUpdateNow(),
   },
   (table) => ({
-    userIdx: uniqueIndex("user_idx").on(table.userId),
+    userIdx: index("user_idx").on(table.userId),
   }),
 );
 
@@ -48,7 +48,7 @@ export const challenges = mysqlTable(
   "challenges",
   {
     id: serial("id").primaryKey(),
-    boardId: int("boardId"),
+    boardId: int("boardId").notNull(),
     question: text("question").notNull(),
     answer: text("answer").notNull(),
     category: text("category").notNull(),
@@ -56,10 +56,10 @@ export const challenges = mysqlTable(
     createdAt: timestamp("createdAt")
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
-    updatedAt: timestamp("updatedAt").notNull().onUpdateNow(),
+    updatedAt: timestamp("updatedAt").onUpdateNow(),
   },
   (table) => ({
-    boardIdx: uniqueIndex("board_idx").on(table.boardId),
+    boardIdx: index("board_idx").on(table.boardId),
   }),
 );
 
@@ -71,4 +71,4 @@ export const challengesRelations = relations(challenges, ({ one }) => ({
 }));
 
 export type TNewBoard = typeof boards.$inferInsert;
-export type TNewChallenge = typeof boards.$inferInsert;
+export type TNewChallenge = typeof challenges.$inferInsert;
