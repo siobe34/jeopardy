@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import { cookies } from "next/headers";
 
 import { Header } from "@/app/_components/header";
+import { Toaster } from "@/app/_components/ui/toaster";
 import { cn } from "@/lib/cn";
 import { TRPCReactProvider } from "@/trpc/react";
 
@@ -32,7 +33,7 @@ export default function RootLayout({
             className={cn(
               "_app grid min-h-screen grid-cols-1 grid-rows-[4rem_1fr]",
               "min-h-[100dvh]",
-              "from-secondary via-background to-background bg-gradient-to-tr from-0% to-30%",
+              "bg-gradient-to-tr from-secondary from-0% via-background to-background to-30%",
             )}
           >
             <SignedIn>
@@ -42,6 +43,7 @@ export default function RootLayout({
               {children}
             </TRPCReactProvider>
           </div>
+          <Toaster />
         </body>
       </html>
     </ClerkProvider>
