@@ -27,11 +27,13 @@ export const boards = mysqlTable(
     id: serial("id").primaryKey(),
     userId: varchar("userId", { length: 256 }).notNull(),
     name: text("name").notNull(),
-    status: mysqlEnum("status", ["active", "archived"]).default("active"),
+    status: mysqlEnum("status", ["active", "archived"])
+      .notNull()
+      .default("active"),
     createdAt: timestamp("createdAt")
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
-    updatedAt: timestamp("updatedAt").onUpdateNow(),
+    updatedAt: timestamp("updatedAt").notNull().onUpdateNow(),
   },
   (table) => ({
     userIdx: uniqueIndex("user_idx").on(table.userId),
@@ -54,7 +56,7 @@ export const challenges = mysqlTable(
     createdAt: timestamp("createdAt")
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
-    updatedAt: timestamp("updatedAt").onUpdateNow(),
+    updatedAt: timestamp("updatedAt").notNull().onUpdateNow(),
   },
   (table) => ({
     boardIdx: uniqueIndex("board_idx").on(table.boardId),
