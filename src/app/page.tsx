@@ -1,7 +1,13 @@
-import { SignIn, SignOutButton, SignedIn, SignedOut } from "@clerk/nextjs";
-import Link from "next/link";
+import { SignIn, SignedOut, currentUser } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
 
-export default function Home() {
+export default async function Home() {
+  const user = await currentUser();
+
+  if (!!user) {
+    redirect("/dashboard");
+  }
+
   return (
     <main className="to-secondary flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[hsl(331,74.5%,65.4%)] to-70% text-white">
       <SignedOut>
