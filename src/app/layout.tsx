@@ -4,6 +4,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
 import { cookies } from "next/headers";
 
+import { cn } from "@/lib/cn";
 import { TRPCReactProvider } from "@/trpc/react";
 
 const inter = Inter({
@@ -24,11 +25,19 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body className={`font-sans ${inter.variable}`}>
-          <TRPCReactProvider cookies={cookies().toString()}>
-            {children}
-          </TRPCReactProvider>
+      <html lang="en" className={`font-sans ${inter.variable}`}>
+        <body>
+          <div
+            className={cn(
+              "_app grid min-h-screen grid-cols-1 grid-rows-[4rem_1fr]",
+              "min-h-[100dvh]",
+              "from-secondary via-background to-background bg-gradient-to-tr from-0% to-30%",
+            )}
+          >
+            <TRPCReactProvider cookies={cookies().toString()}>
+              {children}
+            </TRPCReactProvider>
+          </div>
         </body>
       </html>
     </ClerkProvider>
