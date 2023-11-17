@@ -1,5 +1,5 @@
 import { boardRouter } from "@/server/api/routers/board";
-import { challengeRouter } from "@/server/api/routers/challengeRouter";
+import { challengeRouter } from "@/server/api/routers/challenge";
 import { createTRPCRouter } from "@/server/api/trpc";
 
 /**
