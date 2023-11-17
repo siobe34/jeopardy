@@ -8,7 +8,14 @@ export default function Home() {
         <SignOutButton>Sign out &rarr;</SignOutButton>
       </SignedIn>
       <SignedOut>
-        <SignIn afterSignInUrl={"/"} />
+        <SignIn
+          afterSignInUrl={"/dashboard"}
+          appearance={{
+            variables: {
+              colorPrimary: "hsl(331,74.5%,72.4%)",
+            },
+          }}
+        />
       </SignedOut>
     </main>
   );
