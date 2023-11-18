@@ -3,9 +3,10 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { MobileMenuButton } from "@/app/_components/mobile-menu-button";
-import { cn } from "@/lib/cn";
 import { FlowerBanner } from "@/app/_components/flower-banner";
+import { MobileMenuButton } from "@/app/_components/mobile-menu-button";
+import { Dana } from "@/app/_components/svg/dana";
+import { cn } from "@/lib/cn";
 
 export const Header = () => {
   const pathname = usePathname();
@@ -16,7 +17,7 @@ export const Header = () => {
     <div>
       <header className="relative z-50 flex items-center justify-between gap-8 py-2">
         <div className="pl-4">
-          <h1>Dana</h1>
+          <Dana className="animate-logo h-24 fill-secondary stroke-secondary" />
         </div>
         <MobileMenuButton className="peer mr-4 bg-transparent text-secondary hover:bg-transparent sm:hidden" />
         <div
