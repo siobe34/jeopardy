@@ -1,14 +1,8 @@
-import Link from "next/link";
 import { z } from "zod";
 
+import { BoardNotFound } from "@/app/_components/board-not-found";
 import { FillJeopardyBoard } from "@/app/_components/fill-jeopardy-board";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/app/_components/ui/card";
+import { Card, CardContent } from "@/app/_components/ui/card";
 import {
   Tabs,
   TabsContent,
@@ -38,23 +32,7 @@ export default async function BoardEdit({
   }
 
   if (!boardId || !boardIds.includes(boardId)) {
-    return (
-      <main className="container">
-        <Card>
-          <CardHeader>
-            <CardTitle>Couldn&apos;t find this board</CardTitle>
-            <CardDescription>
-              Looks like the board with this ID doesn&apos;t exist. You can add
-              a new board from the{" "}
-              <Link href="/dashboard" className="text-foreground underline">
-                Dashboard
-              </Link>
-              .
-            </CardDescription>
-          </CardHeader>
-        </Card>
-      </main>
-    );
+    return <BoardNotFound />;
   }
 
   return (
