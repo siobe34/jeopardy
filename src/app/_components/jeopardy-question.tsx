@@ -35,7 +35,7 @@ export const JeopardyQuestion = ({
     <Dialog onOpenChange={handleDialogStateChange}>
       <DialogTrigger asChild>
         <Button
-          className="flex aspect-square w-fit self-center rounded-full border-secondary p-8 text-2xl font-semibold tracking-tight transition-all hover:bg-secondary hover:text-secondary-foreground"
+          className="flex aspect-square w-fit self-center rounded-full border-foreground/80 p-8 text-2xl font-semibold tracking-tight transition-all hover:border-secondary hover:bg-secondary hover:text-secondary-foreground"
           variant="outline"
         >
           {points}
