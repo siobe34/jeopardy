@@ -1,7 +1,10 @@
+import { currentUser } from "@clerk/nextjs";
 import { PartyPopperIcon } from "lucide-react";
+import Link from "next/link";
 
+import { DeleteBoard } from "@/app/_components/delete-board";
 import { NewBoard } from "@/app/_components/new-board";
-import { Button } from "@/app/_components/ui/button";
+import { buttonVariants } from "@/app/_components/ui/button";
 import {
   Card,
   CardContent,
@@ -10,8 +13,6 @@ import {
   CardTitle,
 } from "@/app/_components/ui/card";
 import { api } from "@/trpc/server";
-import { currentUser } from "@clerk/nextjs";
-import { DeleteBoard } from "@/app/_components/delete-board";
 
 export default async function DashboardHome() {
   const user = await currentUser();
@@ -44,10 +45,13 @@ export default async function DashboardHome() {
               </CardDescription>
             </CardHeader>
             <CardContent className="flex items-center justify-between">
-              <Button variant="secondary">
+              <Link
+                className={buttonVariants({ variant: "secondary" })}
+                href={`/game?id=${board.id}`}
+              >
                 Play!
                 <PartyPopperIcon className="ml-2" />
-              </Button>
+              </Link>
               <DeleteBoard boardId={board.id} />
             </CardContent>
           </Card>
