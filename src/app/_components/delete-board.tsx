@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { createRef } from "react";
 import { Trash2Icon } from "lucide-react";
 
@@ -15,7 +16,6 @@ import {
 } from "@/app/_components/ui/dialog";
 import { toast } from "@/app/_components/ui/use-toast";
 import { api } from "@/trpc/react";
-import { useRouter } from "next/navigation";
 
 export const DeleteBoard = ({ boardId }: { boardId: number }) => {
   const router = useRouter();
@@ -63,7 +63,9 @@ export const DeleteBoard = ({ boardId }: { boardId: number }) => {
         </DialogHeader>
         <DialogDescription className="text-base">
           You are attempting to delete a jeopardy board.
-          <p className="font-extrabold">This action cannot be undone.</p>
+          <p className="font-extrabold text-foreground">
+            This action cannot be undone.
+          </p>
         </DialogDescription>
         <Button
           variant="destructive"
