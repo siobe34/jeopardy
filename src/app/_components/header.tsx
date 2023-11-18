@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 
 import { MobileMenuButton } from "@/app/_components/mobile-menu-button";
 import { cn } from "@/lib/cn";
+import { FlowerBanner } from "@/app/_components/flower-banner";
 
 export const Header = () => {
   const pathname = usePathname();
@@ -12,6 +13,7 @@ export const Header = () => {
   if (["/", "/auth", "/auth/signout"].includes(pathname)) return null;
 
   return (
+    <div>
       <header className="relative z-50 flex items-center justify-between gap-8 py-2">
         <div className="pl-4">
           <h1>Dana</h1>
@@ -37,5 +39,7 @@ export const Header = () => {
           </div>
         </div>
       </header>
+      <FlowerBanner />
+    </div>
   );
 };
