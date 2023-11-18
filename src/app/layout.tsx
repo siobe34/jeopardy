@@ -30,7 +30,7 @@ export default function RootLayout({
       <body>
         <div
           className={cn(
-            "_app grid min-h-screen grid-cols-1 grid-rows-[8rem_1fr]",
+            "_app grid min-h-screen grid-cols-1 grid-rows-[12rem_1fr]",
             "min-h-[100dvh]",
           )}
         >

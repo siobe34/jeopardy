@@ -48,7 +48,7 @@ export default async function Game({
   });
 
   return (
-    <main className="h-[calc(100vh-8rem)] max-h-[calc(100vh-8rem)] w-full overflow-hidden p-12 pt-0">
+    <main className="h-[calc(100vh-12rem)] max-h-[calc(100vh-12rem)] w-full overflow-hidden p-12 pt-2">
       <Link
         href="/dashboard"
         className={buttonVariants({ variant: "default" })}
