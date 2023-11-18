@@ -23,7 +23,11 @@ export const challengeRouter = createTRPCRouter({
   getByBoardAndUser: protectedProcedure
     .input(z.object({ boardId: z.number() }))
     .query(async ({ ctx, input }) => {
-      const currentUserId = ctx.user.id;
+      const currentUserId = ctx.user?.id;
+
+      if (!currentUserId) {
+        return null;
+      }
 
       const queriedChallenges = await ctx.db.query.challenges.findMany({
         with: { board: { columns: { userId: true } } },

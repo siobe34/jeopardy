@@ -9,7 +9,15 @@ export const boardRouter = createTRPCRouter({
   create: protectedProcedure
     .input(z.object({ name: z.string() }))
     .mutation(async ({ ctx, input }) => {
-      const currentUserId = ctx.user.id;
+      const currentUserId = ctx.user?.id;
+
+      if (!currentUserId) {
+        throw new TRPCError({
+          code: "UNAUTHORIZED",
+          message:
+            "You are not signed in. Please sign in and try visiting this page again.",
+        });
+      }
 
       const addedBoard = await ctx.db.insert(boards).values({
         name: input.name,
@@ -39,7 +47,11 @@ export const boardRouter = createTRPCRouter({
       return deletedBoard;
     }),
   getByCurrentUser: protectedProcedure.query(async ({ ctx }) => {
-    const currentUserId = ctx.user.id;
+    const currentUserId = ctx.user?.id;
+
+    if (!currentUserId) {
+      return null;
+    }
 
     const boards = await ctx.db.query.boards.findMany({
       where: (table, { eq }) => eq(table.userId, currentUserId),

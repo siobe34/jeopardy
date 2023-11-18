@@ -8,7 +8,7 @@
  */
 import { type User } from "@supabase/supabase-js";
 import { createServerClient } from "@supabase/ssr";
-import { initTRPC, TRPCError } from "@trpc/server";
+import { initTRPC } from "@trpc/server";
 import { type NextRequest } from "next/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
@@ -133,10 +133,6 @@ export const createTRPCRouter = t.router;
 export const publicProcedure = t.procedure;
 
 const enforceAuthentication = t.middleware(async ({ ctx, next }) => {
-  if (!ctx.user) {
-    throw new TRPCError({ code: "UNAUTHORIZED" });
-  }
-
   return next({
     ctx: {
       user: ctx.user,

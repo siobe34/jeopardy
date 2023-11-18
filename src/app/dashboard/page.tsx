@@ -12,6 +12,7 @@ import {
   CardTitle,
 } from "@/app/_components/ui/card";
 import { getUserOnServer } from "@/lib/auth/getUserOnServer";
+import { redirectToSignInError } from "@/lib/auth/redirectToSignInError";
 import { api } from "@/trpc/server";
 
 export const metadata = {
@@ -22,6 +23,10 @@ export default async function DashboardHome() {
   const user = await getUserOnServer();
 
   const jeopardyBoards = await api.board.getByCurrentUser.query();
+
+  if (!jeopardyBoards) {
+    return redirectToSignInError();
+  }
 
   return (
     <main className="container flex flex-col gap-4">

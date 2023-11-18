@@ -9,6 +9,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/app/_components/ui/tabs";
+import { redirectToSignInError } from "@/lib/auth/redirectToSignInError";
 import { api } from "@/trpc/server";
 
 export const metadata = {
@@ -20,11 +21,15 @@ export default async function BoardEdit({
 }: {
   searchParams: Record<string, string | string[] | undefined>;
 }) {
-  let boardId: number | undefined;
-  const boardIds = (await api.board.getByCurrentUser.query()).map(
-    (board) => board.id,
-  );
+  const userBoards = await api.board.getByCurrentUser.query();
 
+  if (!userBoards) {
+    return redirectToSignInError();
+  }
+
+  const boardIds = userBoards.map((board) => board.id);
+
+  let boardId: number | undefined;
   const boardIdAsString = searchParams.id as string;
 
   const searchParamsZod = z
