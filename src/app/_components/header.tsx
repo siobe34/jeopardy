@@ -17,7 +17,10 @@ export const Header = () => {
     <div>
       <header className="relative z-50 flex items-center justify-between gap-8 py-2">
         <div className="pl-4">
-          <Dana className="animate-logo h-24 fill-secondary stroke-secondary" />
+          <Dana
+            key={pathname}
+            className="animate-logo h-24 fill-secondary stroke-secondary"
+          />
         </div>
         <MobileMenuButton className="peer mr-4 bg-transparent text-secondary hover:bg-transparent sm:hidden" />
         <div
