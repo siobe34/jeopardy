@@ -11,6 +11,10 @@ import {
 } from "@/app/_components/ui/tabs";
 import { api } from "@/trpc/server";
 
+export const metadata = {
+  title: "Jeopardy | New Board",
+};
+
 export default async function BoardEdit({
   searchParams,
 }: {

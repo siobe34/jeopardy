@@ -14,6 +14,10 @@ import {
 } from "@/app/_components/ui/card";
 import { api } from "@/trpc/server";
 
+export const metadata = {
+  title: "Jeopardy | Dashboard",
+};
+
 export default async function DashboardHome() {
   const user = await currentUser();
 

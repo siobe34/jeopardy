@@ -8,6 +8,10 @@ import { buttonVariants } from "@/app/_components/ui/button";
 import { groupArrayOfObjsBy } from "@/lib/groupArrayOfObjsBy";
 import { api } from "@/trpc/server";
 
+export const metadata = {
+  title: "Jeopardy | Play!",
+};
+
 export default async function Game({
   searchParams,
 }: {
