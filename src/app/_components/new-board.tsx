@@ -1,6 +1,6 @@
 "use client";
 
-import { PlusIcon } from "lucide-react";
+import { Loader2Icon, PlusIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
 
@@ -24,6 +24,8 @@ export const NewBoard = ({ userId }: { userId: string }) => {
 
   const router = useRouter();
 
+  const [loading, setLoading] = useState(false);
+
   const defaultBoardState = {
     name: "",
     status: "active",
@@ -34,10 +36,12 @@ export const NewBoard = ({ userId }: { userId: string }) => {
 
   const createBoard = api.board.create.useMutation({
     onSuccess: (data) => {
-      // * Reset state
-      setBoardState(defaultBoardState);
       // * Redirect to add the jeopardy info for the new board
       router.push(`/board/new?id=${data.id}`);
+
+      // * Reset state
+      setBoardState(defaultBoardState);
+      setLoading(false);
 
       toast({
         title: "Success",
@@ -47,6 +51,8 @@ export const NewBoard = ({ userId }: { userId: string }) => {
       });
     },
     onError: () => {
+      setLoading(false);
+
       toast({
         title: "Unexpected Error",
         description:
@@ -57,11 +63,14 @@ export const NewBoard = ({ userId }: { userId: string }) => {
   });
 
   const handleFormSubmission = (e: FormEvent) => {
+    setLoading(true);
     e.preventDefault();
 
     const zodParser = boardSchema.safeParse(boardState);
 
     if (!zodParser.success) {
+      setLoading(false);
+
       zodParser.error.issues.forEach((error) =>
         toast({
           title: "Input Error",
@@ -109,7 +118,8 @@ export const NewBoard = ({ userId }: { userId: string }) => {
               className="sm:col-span-3"
             />
           </div>
-          <Button type="submit" form={formId}>
+          <Button type="submit" form={formId} disabled={loading}>
+            {loading && <Loader2Icon className="mr-2 animate-spin" />}
             Create
           </Button>
         </DialogContent>
