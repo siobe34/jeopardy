@@ -11,7 +11,6 @@
     "start": "next start"
   },
   "dependencies": {
-    "@clerk/nextjs": "^4.27.1",
     "@planetscale/database": "^1.11.0",
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-label": "^2.0.2",
