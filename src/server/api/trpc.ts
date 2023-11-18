@@ -6,14 +6,11 @@
  * TL;DR - This is where all the tRPC server stuff is created and plugged in. The pieces you will
  * need to use are documented accordingly near the end.
  */
-import { type User } from "@supabase/supabase-js";
-import { createServerClient } from "@supabase/ssr";
 import { initTRPC } from "@trpc/server";
 import { type NextRequest } from "next/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
 
-import { env } from "@/env.mjs";
 import { db } from "@/server/db";
 
 /**
@@ -26,7 +23,6 @@ import { db } from "@/server/db";
 
 interface CreateContextOptions {
   headers: Headers;
-  user: User | null;
 }
 
 /**
@@ -42,7 +38,6 @@ interface CreateContextOptions {
 export const createInnerTRPCContext = (opts: CreateContextOptions) => {
   return {
     headers: opts.headers,
-    user: opts.user,
     db,
   };
 };
@@ -53,37 +48,11 @@ export const createInnerTRPCContext = (opts: CreateContextOptions) => {
  *
  * @see https://trpc.io/docs/context
  */
-export const createTRPCContext = async (opts: { req: NextRequest }) => {
+export const createTRPCContext = (opts: { req: NextRequest }) => {
   // Fetch stuff that depends on the request
-
-  const cookieStore = opts.req.cookies;
-
-  const { auth } = createServerClient(
-    env.NEXT_PUBLIC_SUPABASE_URL,
-    env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-    {
-      cookies: {
-        get(name: string) {
-          return cookieStore.get(name)?.value;
-        },
-        set(name: string, value: string) {
-          cookieStore.set(name, value);
-        },
-        remove(name: string) {
-          cookieStore.set(name, "");
-        },
-      },
-    },
-  );
-
-  const {
-    data: { user },
-  } = await auth.getUser();
-
   // If the session is invalid, return a context with no session
   return createInnerTRPCContext({
     headers: opts.req.headers,
-    user: user,
   });
 };
 
@@ -131,20 +100,3 @@ export const createTRPCRouter = t.router;
  * are logged in.
  */
 export const publicProcedure = t.procedure;
-
-const enforceAuthentication = t.middleware(async ({ ctx, next }) => {
-  // @ts-expect-error -> Idk why the User type isn't being inferred when all I'm doing is hard-coding the id
-  const newUser: typeof ctx.user = {
-    ...ctx.user,
-    id: "e1555a61-b3b2-4166-b5d3-0eebf24ef30e",
-  };
-
-  console.log(newUser);
-  return next({
-    ctx: {
-      user: newUser,
-    },
-  });
-});
-
-export const protectedProcedure = t.procedure.use(enforceAuthentication);

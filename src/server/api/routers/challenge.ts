@@ -1,11 +1,12 @@
 import { z } from "zod";
 
-import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
+import { env } from "@/env.mjs";
+import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import { challenges } from "@/server/db/schema";
 import { challengeSchema } from "@/types/challengeSchema";
 
 export const challengeRouter = createTRPCRouter({
-  create: protectedProcedure
+  create: publicProcedure
     .input(challengeSchema)
     .mutation(async ({ ctx, input }) => {
       const addedChallenges = await ctx.db.insert(challenges).values(
@@ -20,22 +21,16 @@ export const challengeRouter = createTRPCRouter({
 
       return addedChallenges;
     }),
-  getByBoardAndUser: protectedProcedure
+  getByBoardAndUser: publicProcedure
     .input(z.object({ boardId: z.number() }))
     .query(async ({ ctx, input }) => {
-      const currentUserId = ctx.user?.id;
-
-      if (!currentUserId) {
-        return null;
-      }
-
       const queriedChallenges = await ctx.db.query.challenges.findMany({
         with: { board: { columns: { userId: true } } },
         where: (table, { eq }) => eq(table.boardId, input.boardId),
       });
 
       return queriedChallenges.filter(
-        (row) => row.board?.userId === currentUserId,
+        (row) => row.board?.userId === env.SUPABASE_USER_ID,
       );
     }),
 });

@@ -11,8 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/app/_components/ui/card";
-import { getUserOnServer } from "@/lib/auth/getUserOnServer";
-import { redirectToSignInError } from "@/lib/auth/redirectToSignInError";
+import { env } from "@/env.mjs";
 import { api } from "@/trpc/server";
 
 export const metadata = {
@@ -20,20 +19,14 @@ export const metadata = {
 };
 
 export default async function DashboardHome() {
-  const user = await getUserOnServer();
-
   const jeopardyBoards = await api.board.getByCurrentUser.query();
-
-  if (!jeopardyBoards) {
-    return redirectToSignInError();
-  }
 
   return (
     <main className="container flex flex-col gap-4">
       <h1 className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-4xl">
         Your Jeopardy Boards
       </h1>
-      {!!user && <NewBoard userId={user.id} />}
+      <NewBoard userId={env.SUPABASE_USER_ID} />
       {jeopardyBoards.length === 0 ? (
         <Card>
           <CardHeader>

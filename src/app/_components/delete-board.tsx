@@ -1,18 +1,18 @@
 "use client";
 
+import { Trash2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { createRef } from "react";
-import { Trash2Icon } from "lucide-react";
 
 import { Button } from "@/app/_components/ui/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DialogClose,
 } from "@/app/_components/ui/dialog";
 import { toast } from "@/app/_components/ui/use-toast";
 import { api } from "@/trpc/react";

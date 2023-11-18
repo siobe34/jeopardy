@@ -5,7 +5,6 @@ import { z } from "zod";
 import { BoardNotFound } from "@/app/_components/board-not-found";
 import { JeopardyQuestion } from "@/app/_components/jeopardy-question";
 import { buttonVariants } from "@/app/_components/ui/button";
-import { redirectToSignInError } from "@/lib/auth/redirectToSignInError";
 import { groupArrayOfObjsBy } from "@/lib/groupArrayOfObjsBy";
 import { api } from "@/trpc/server";
 
@@ -33,10 +32,6 @@ export default async function Game({
   let queriedJeopardyData = await api.challenge.getByBoardAndUser.query({
     boardId,
   });
-
-  if (!queriedJeopardyData) {
-    return redirectToSignInError();
-  }
 
   if (queriedJeopardyData.length > 25) {
     queriedJeopardyData = queriedJeopardyData.slice(0, 25);

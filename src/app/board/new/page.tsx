@@ -9,7 +9,6 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/app/_components/ui/tabs";
-import { redirectToSignInError } from "@/lib/auth/redirectToSignInError";
 import { api } from "@/trpc/server";
 
 export const metadata = {
@@ -22,10 +21,6 @@ export default async function BoardEdit({
   searchParams: Record<string, string | string[] | undefined>;
 }) {
   const userBoards = await api.board.getByCurrentUser.query();
-
-  if (!userBoards) {
-    return redirectToSignInError();
-  }
 
   const boardIds = userBoards.map((board) => board.id);
 

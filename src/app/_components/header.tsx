@@ -11,7 +11,7 @@ import { cn } from "@/lib/cn";
 export const Header = () => {
   const pathname = usePathname();
 
-  if (["/", "/auth", "/auth/signout"].includes(pathname)) return null;
+  if (pathname === "/") return null;
 
   return (
     <div>
@@ -34,11 +34,9 @@ export const Header = () => {
         >
           <div className="max-sm:overflow-hidden">
             <ul className="flex flex-col sm:flex-row sm:gap-6">
-              {!["/", "/auth", "/auth/signout"].includes(pathname) && (
-                <li className="flex flex-col items-center justify-center border-b py-2 text-center sm:border-none sm:p-0 sm:after:h-[2px] sm:after:w-0 sm:after:bg-secondary sm:after:transition-all hover:sm:after:w-full">
-                  <Link href="/auth/signout">Sign Out</Link>
-                </li>
-              )}
+              <li className="flex flex-col items-center justify-center border-b py-2 text-center sm:border-none sm:p-0 sm:after:h-[2px] sm:after:w-0 sm:after:bg-secondary sm:after:transition-all hover:sm:after:w-full">
+                <Link href="/">Home</Link>
+              </li>
             </ul>
           </div>
         </div>
