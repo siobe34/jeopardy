@@ -32,7 +32,6 @@ export default function RootLayout({
           className={cn(
             "_app grid min-h-screen grid-cols-1 grid-rows-[8rem_1fr]",
             "min-h-[100dvh]",
-            "bg-gradient-to-tr from-secondary from-0% via-background to-background to-30%",
           )}
         >
           <Header />
