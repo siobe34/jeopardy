@@ -1,4 +1,4 @@
-import { EditIcon, PartyPopperIcon, Trash2Icon } from "lucide-react";
+import { PartyPopperIcon } from "lucide-react";
 
 import { NewBoard } from "@/app/_components/new-board";
 import { Button } from "@/app/_components/ui/button";
@@ -11,6 +11,7 @@ import {
 } from "@/app/_components/ui/card";
 import { api } from "@/trpc/server";
 import { currentUser } from "@clerk/nextjs";
+import { DeleteBoard } from "@/app/_components/delete-board";
 
 export default async function DashboardHome() {
   const user = await currentUser();
@@ -47,19 +48,7 @@ export default async function DashboardHome() {
                 Play!
                 <PartyPopperIcon className="ml-2" />
               </Button>
-              <div className="flex flex-wrap items-center justify-center gap-2">
-                <Button>
-                  <EditIcon className="mr-2" />
-                  Edit Board
-                </Button>
-                <Button
-                  variant="destructive"
-                  className="hover:bg-destructive/80"
-                >
-                  <Trash2Icon className="mr-2" />
-                  Delete Board
-                </Button>
-              </div>
+              <DeleteBoard boardId={board.id} />
             </CardContent>
           </Card>
         ))
