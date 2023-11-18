@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 
 import { ClerkProvider, SignedIn } from "@clerk/nextjs";
-import { Inter } from "next/font/google";
+import { Alegreya_Sans } from "next/font/google";
 import { cookies } from "next/headers";
 
 import { Header } from "@/app/_components/header";
@@ -9,7 +9,8 @@ import { Toaster } from "@/app/_components/ui/toaster";
 import { cn } from "@/lib/cn";
 import { TRPCReactProvider } from "@/trpc/react";
 
-const inter = Inter({
+const font = Alegreya_Sans({
+  weight: ["400", "700"],
   subsets: ["latin"],
   variable: "--font-sans",
 });
@@ -27,7 +28,7 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en" className={`font-sans ${inter.variable}`}>
+      <html lang="en" className={`font-sans ${font.variable}`}>
         <body>
           <div
             className={cn(
