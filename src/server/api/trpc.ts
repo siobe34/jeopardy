@@ -133,9 +133,16 @@ export const createTRPCRouter = t.router;
 export const publicProcedure = t.procedure;
 
 const enforceAuthentication = t.middleware(async ({ ctx, next }) => {
+  // @ts-expect-error -> Idk why the User type isn't being inferred when all I'm doing is hard-coding the id
+  const newUser: typeof ctx.user = {
+    ...ctx.user,
+    id: "e1555a61-b3b2-4166-b5d3-0eebf24ef30e",
+  };
+
+  console.log(newUser);
   return next({
     ctx: {
-      user: ctx.user,
+      user: newUser,
     },
   });
 });
