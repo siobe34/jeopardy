@@ -1,4 +1,5 @@
 import { TRPCError } from "@trpc/server";
+import { eq } from "drizzle-orm";
 import { z } from "zod";
 
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
@@ -27,6 +28,15 @@ export const boardRouter = createTRPCRouter({
       }
 
       return newBoard;
+    }),
+  delete: protectedProcedure
+    .input(z.object({ id: z.number() }))
+    .mutation(async ({ ctx, input }) => {
+      const deletedBoard = await ctx.db
+        .delete(boards)
+        .where(eq(boards.id, input.id));
+
+      return deletedBoard;
     }),
   getByCurrentUser: protectedProcedure.query(async ({ ctx }) => {
     const currentUserId = ctx.session.userId;
