@@ -6,7 +6,7 @@
  * TL;DR - This is where all the tRPC server stuff is created and plugged in. The pieces you will
  * need to use are documented accordingly near the end.
  */
-import { type User } from "@supabase/gotrue-js/src/lib/types";
+import { type User } from "@supabase/supabase-js";
 import { createServerClient } from "@supabase/ssr";
 import { initTRPC, TRPCError } from "@trpc/server";
 import { type NextRequest } from "next/server";
