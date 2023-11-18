@@ -74,10 +74,25 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "logo-fill": {
+          from: { fill: "transparent" },
+          to: { fill: "hsl(331,74.5%,72.4%)" },
+        },
+        "logo-stroke": {
+          from: {
+            stroke: "hsl(331,74.5%,72.4%)",
+            strokeDasharray: "100%",
+          },
+          to: {
+            stroke: "hsl(331,74.5%,72.4%)",
+            strokeDasharray: "500%",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        logo: "logo-stroke 1500ms ease-in, logo-fill 1500ms ease-in",
       },
     },
   },
