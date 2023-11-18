@@ -1,6 +1,5 @@
 import "@/styles/globals.css";
 
-import { ClerkProvider, SignedIn } from "@clerk/nextjs";
 import { Alegreya_Sans } from "next/font/google";
 import { cookies } from "next/headers";
 
@@ -27,26 +26,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
-      <html lang="en" className={`font-sans ${font.variable}`}>
-        <body>
-          <div
-            className={cn(
-              "_app grid min-h-screen grid-cols-1 grid-rows-[4rem_1fr]",
-              "min-h-[100dvh]",
-              "bg-gradient-to-tr from-secondary from-0% via-background to-background to-30%",
-            )}
-          >
-            <SignedIn>
-              <Header />
-            </SignedIn>
-            <TRPCReactProvider cookies={cookies().toString()}>
-              {children}
-            </TRPCReactProvider>
-          </div>
-          <Toaster />
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en" className={`font-sans ${font.variable}`}>
+      <body>
+        <div
+          className={cn(
+            "_app grid min-h-screen grid-cols-1 grid-rows-[8rem_1fr]",
+            "min-h-[100dvh]",
+            "bg-gradient-to-tr from-secondary from-0% via-background to-background to-30%",
+          )}
+        >
+          <Header />
+          <TRPCReactProvider cookies={cookies().toString()}>
+            {children}
+          </TRPCReactProvider>
+        </div>
+        <Toaster />
+      </body>
+    </html>
   );
 }

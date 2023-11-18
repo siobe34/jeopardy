@@ -1,4 +1,3 @@
-import { currentUser } from "@clerk/nextjs";
 import { PartyPopperIcon } from "lucide-react";
 import Link from "next/link";
 
@@ -12,6 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/app/_components/ui/card";
+import { getUserOnServer } from "@/lib/auth/getUserOnServer";
 import { api } from "@/trpc/server";
 
 export const metadata = {
@@ -19,7 +19,7 @@ export const metadata = {
 };
 
 export default async function DashboardHome() {
-  const user = await currentUser();
+  const user = await getUserOnServer();
 
   const jeopardyBoards = await api.board.getByCurrentUser.query();
 

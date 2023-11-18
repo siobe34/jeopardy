@@ -6,13 +6,14 @@
  * TL;DR - This is where all the tRPC server stuff is created and plugged in. The pieces you will
  * need to use are documented accordingly near the end.
  */
-import { clerkClient } from "@clerk/nextjs";
-import { decodeJwt, type Session } from "@clerk/nextjs/server";
+import { type User } from "@supabase/gotrue-js/src/lib/types";
+import { createServerClient } from "@supabase/ssr";
 import { initTRPC, TRPCError } from "@trpc/server";
 import { type NextRequest } from "next/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
 
+import { env } from "@/env.mjs";
 import { db } from "@/server/db";
 
 /**
@@ -25,7 +26,7 @@ import { db } from "@/server/db";
 
 interface CreateContextOptions {
   headers: Headers;
-  session: Session | null;
+  user: User | null;
 }
 
 /**
@@ -41,7 +42,7 @@ interface CreateContextOptions {
 export const createInnerTRPCContext = (opts: CreateContextOptions) => {
   return {
     headers: opts.headers,
-    session: opts.session,
+    user: opts.user,
     db,
   };
 };
@@ -55,31 +56,34 @@ export const createInnerTRPCContext = (opts: CreateContextOptions) => {
 export const createTRPCContext = async (opts: { req: NextRequest }) => {
   // Fetch stuff that depends on the request
 
-  const sessionToken = opts.req.cookies.get("__session")?.value ?? "";
+  const cookieStore = opts.req.cookies;
 
-  try {
-    // Decode the JWT to get the session ID
-    const decodedJwt = decodeJwt(sessionToken);
+  const { auth } = createServerClient(
+    env.NEXT_PUBLIC_SUPABASE_URL,
+    env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    {
+      cookies: {
+        get(name: string) {
+          return cookieStore.get(name)?.value;
+        },
+        set(name: string, value: string) {
+          cookieStore.set(name, value);
+        },
+        remove(name: string) {
+          cookieStore.set(name, "");
+        },
+      },
+    },
+  );
 
-    // Verify the session with Clerk to get the session object
-    const verifiedSession = await clerkClient.sessions.verifySession(
-      decodedJwt.payload.sid,
-      sessionToken,
-    );
-
-    // If the session is valid, return a context with the session
-    return createInnerTRPCContext({
-      headers: opts.req.headers,
-      session: verifiedSession,
-    });
-  } catch (error) {
-    console.error(error);
-  }
+  const {
+    data: { user },
+  } = await auth.getUser();
 
   // If the session is invalid, return a context with no session
   return createInnerTRPCContext({
     headers: opts.req.headers,
-    session: null,
+    user: user,
   });
 };
 
@@ -129,13 +133,13 @@ export const createTRPCRouter = t.router;
 export const publicProcedure = t.procedure;
 
 const enforceAuthentication = t.middleware(async ({ ctx, next }) => {
-  if (!ctx.session) {
+  if (!ctx.user) {
     throw new TRPCError({ code: "UNAUTHORIZED" });
   }
 
   return next({
     ctx: {
-      session: ctx.session,
+      user: ctx.user,
     },
   });
 });

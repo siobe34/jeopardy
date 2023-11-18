@@ -9,7 +9,7 @@ export const boardRouter = createTRPCRouter({
   create: protectedProcedure
     .input(z.object({ name: z.string() }))
     .mutation(async ({ ctx, input }) => {
-      const currentUserId = ctx.session.userId;
+      const currentUserId = ctx.user.id;
 
       const addedBoard = await ctx.db.insert(boards).values({
         name: input.name,
@@ -39,7 +39,7 @@ export const boardRouter = createTRPCRouter({
       return deletedBoard;
     }),
   getByCurrentUser: protectedProcedure.query(async ({ ctx }) => {
-    const currentUserId = ctx.session.userId;
+    const currentUserId = ctx.user.id;
 
     const boards = await ctx.db.query.boards.findMany({
       where: (table, { eq }) => eq(table.userId, currentUserId),
