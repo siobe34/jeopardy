@@ -8,7 +8,7 @@ import { Flower4 } from "@/app/_components/svg/flower4";
 
 export const FlowerBanner = () => {
   return (
-    <div className="relative flex w-full">
+    <div className="pointer-events-none relative flex w-full">
       <StarsIcon className="absolute left-[10%] top-0 hidden h-8 w-8 animate-pulse fill-secondary stroke-secondary lg:block" />
       <StarsIcon className="absolute left-[14%] top-10 hidden h-5 w-5 animate-pulse fill-secondary stroke-secondary lg:block" />
       <StarsIcon className="absolute left-[20%] top-6 hidden h-8 w-8 animate-pulse fill-secondary stroke-secondary lg:block" />
