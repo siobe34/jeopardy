@@ -21,7 +21,7 @@ export const metadata = {
 export default async function DashboardHome() {
   const user = await currentUser();
 
-  const jeopardyBoards = await api.board.getByCurrentUser.query();
+  // const jeopardyBoards = await api.board.getByCurrentUser.query();
 
   return (
     <main className="container flex flex-col gap-4">
@@ -29,7 +29,7 @@ export default async function DashboardHome() {
         Your Jeopardy Boards
       </h1>
       {!!user && <NewBoard userId={user.id} />}
-      {jeopardyBoards.length === 0 ? (
+      {/* {jeopardyBoards.length === 0 ? (
         <Card>
           <CardHeader>
             <CardTitle>No boards!</CardTitle>
@@ -60,7 +60,7 @@ export default async function DashboardHome() {
             </CardContent>
           </Card>
         ))
-      )}
+      )} */}
     </main>
   );
 }
