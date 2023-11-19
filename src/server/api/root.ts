@@ -1,5 +1,6 @@
 import { boardRouter } from "@/server/api/routers/board";
 import { challengeRouter } from "@/server/api/routers/challenge";
+import { teamRouter } from "@/server/api/routers/teams";
 import { createTRPCRouter } from "@/server/api/trpc";
 
 /**
@@ -10,6 +11,7 @@ import { createTRPCRouter } from "@/server/api/trpc";
 export const appRouter = createTRPCRouter({
   board: boardRouter,
   challenge: challengeRouter,
+  teams: teamRouter,
 });
 
 // export type definition of API
