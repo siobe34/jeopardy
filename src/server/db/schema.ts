@@ -42,6 +42,7 @@ export const boards = mysqlTable(
 
 export const boardsRelations = relations(boards, ({ many }) => ({
   challenges: many(challenges),
+  teams: many(teams),
 }));
 
 export const challenges = mysqlTable(
@@ -53,6 +54,9 @@ export const challenges = mysqlTable(
     answer: text("answer").notNull(),
     category: text("category").notNull(),
     points: int("points").notNull(),
+    status: mysqlEnum("status", ["unsolved", "solved"])
+      .notNull()
+      .default("unsolved"),
     createdAt: timestamp("createdAt")
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
@@ -66,6 +70,30 @@ export const challenges = mysqlTable(
 export const challengesRelations = relations(challenges, ({ one }) => ({
   board: one(boards, {
     fields: [challenges.boardId],
+    references: [boards.id],
+  }),
+}));
+
+export const teams = mysqlTable(
+  "teams",
+  {
+    id: serial("id").primaryKey(),
+    boardId: int("boardId").notNull(),
+    name: text("name").notNull(),
+    score: int("score").notNull(),
+    createdAt: timestamp("createdAt")
+      .default(sql`CURRENT_TIMESTAMP`)
+      .notNull(),
+    updatedAt: timestamp("updatedAt").onUpdateNow(),
+  },
+  (table) => ({
+    boardIdx: index("board_idx").on(table.boardId),
+  }),
+);
+
+export const teamsRelations = relations(teams, ({ one }) => ({
+  board: one(boards, {
+    fields: [teams.boardId],
     references: [boards.id],
   }),
 }));
