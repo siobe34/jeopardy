@@ -1,9 +1,6 @@
-import { PartyPopperIcon } from "lucide-react";
-import Link from "next/link";
-
 import { DeleteBoard } from "@/app/_components/delete-board";
 import { NewBoard } from "@/app/_components/new-board";
-import { buttonVariants } from "@/app/_components/ui/button";
+import { PlayButton } from "@/app/_components/play-button";
 import {
   Card,
   CardContent,
@@ -47,13 +44,7 @@ export default async function DashboardHome() {
               </CardDescription>
             </CardHeader>
             <CardContent className="flex items-center justify-between">
-              <Link
-                className={buttonVariants({ variant: "secondary" })}
-                href={`/game?id=${board.id}`}
-              >
-                Play!
-                <PartyPopperIcon className="ml-2" />
-              </Link>
+              <PlayButton boardId={board.id} />
               <DeleteBoard boardId={board.id} />
             </CardContent>
           </Card>
