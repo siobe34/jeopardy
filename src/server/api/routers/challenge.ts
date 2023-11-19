@@ -1,3 +1,4 @@
+import { and, eq } from "drizzle-orm";
 import { z } from "zod";
 
 import { env } from "@/env.mjs";
@@ -32,5 +33,20 @@ export const challengeRouter = createTRPCRouter({
       return queriedChallenges.filter(
         (row) => row.board?.userId === env.SUPABASE_USER_ID,
       );
+    }),
+  markCompleted: publicProcedure
+    .input(z.object({ boardId: z.number(), question: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const completedChallenge = await ctx.db
+        .update(challenges)
+        .set({ status: "solved" })
+        .where(
+          and(
+            eq(challenges.boardId, input.boardId),
+            eq(challenges.question, input.question),
+          ),
+        );
+
+      return completedChallenge;
     }),
 });
