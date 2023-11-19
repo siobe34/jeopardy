@@ -107,7 +107,7 @@ export const NewBoard = ({ userId }: { userId: string }) => {
             </Label>
             <Input
               id="name"
-              placeholder="Chore Description"
+              placeholder="Name of Board"
               defaultValue={boardState.name ?? ""}
               onChange={(e) =>
                 setBoardState((prevState) => ({
