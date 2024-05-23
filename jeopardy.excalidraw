@@ -2641,8 +2641,8 @@
       "type": "text",
       "x": -152.07509517669678,
       "y": 774.0157477855682,
-      "width": 177.11978149414062,
-      "height": 50,
+      "width": 212.51974487304688,
+      "height": 75,
       "angle": 0,
       "strokeColor": "#1e1e1e",
       "backgroundColor": "transparent",
@@ -2656,8 +2656,8 @@
       "index": "b0D",
       "roundness": null,
       "seed": 1828530656,
-      "version": 134,
-      "versionNonce": 1040691680,
+      "version": 199,
+      "versionNonce": 854385696,
       "isDeleted": false,
       "boundElements": [
         {
@@ -2673,26 +2673,26 @@
           "type": "arrow"
         }
       ],
-      "updated": 1716444407980,
+      "updated": 1716445026775,
       "link": null,
       "locked": false,
-      "text": "Click the team to\ngive the points to",
+      "text": "Clicking assigns points\nto team and returns\nback to game",
       "fontSize": 20,
       "fontFamily": 1,
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "Click the team to\ngive the points to",
+      "originalText": "Clicking assigns points\nto team and returns\nback to game",
       "autoResize": true,
       "lineHeight": 1.25
     },
     {
       "id": "QWZCNfywLhaVubHD0tIYr",
       "type": "arrow",
-      "x": -50.07509517669678,
+      "x": -35.618424116022254,
       "y": 765.0157477855682,
-      "width": 5,
-      "height": 95,
+      "width": 7.466512571010824,
+      "height": 88,
       "angle": 0,
       "strokeColor": "#1e1e1e",
       "backgroundColor": "transparent",
@@ -2708,11 +2708,11 @@
         "type": 2
       },
       "seed": 820575712,
-      "version": 27,
-      "versionNonce": 1537697248,
+      "version": 157,
+      "versionNonce": 1843026976,
       "isDeleted": false,
       "boundElements": null,
-      "updated": 1716444403509,
+      "updated": 1716445026778,
       "link": null,
       "locked": false,
       "points": [
@@ -2721,8 +2721,8 @@
           0
         ],
         [
-          5,
-          -95
+          -7.466512571010824,
+          -88
         ]
       ],
       "lastCommittedPoint": null,
@@ -2742,10 +2742,10 @@
     {
       "id": "S-9KW5KCH3B336oIfg1eP",
       "type": "arrow",
-      "x": -53.07509517669678,
+      "x": -33.061961608448414,
       "y": 770.0157477855682,
-      "width": 114,
-      "height": 92,
+      "width": 94.17234559141777,
+      "height": 90,
       "angle": 0,
       "strokeColor": "#1e1e1e",
       "backgroundColor": "transparent",
@@ -2761,11 +2761,11 @@
         "type": 2
       },
       "seed": 196046304,
-      "version": 32,
-      "versionNonce": 1174415840,
+      "version": 162,
+      "versionNonce": 1976161312,
       "isDeleted": false,
       "boundElements": null,
-      "updated": 1716444405759,
+      "updated": 1716445026779,
       "link": null,
       "locked": false,
       "points": [
@@ -2774,8 +2774,8 @@
           0
         ],
         [
-          114,
-          -92
+          94.17234559141777,
+          -90
         ]
       ],
       "lastCommittedPoint": null,
@@ -2795,10 +2795,10 @@
     {
       "id": "RFyxV5_Xi8omyIjEmhMin",
       "type": "arrow",
-      "x": -55.07509517669678,
+      "x": -42.62612762059736,
       "y": 765.0157477855682,
-      "width": 64,
-      "height": 90,
+      "width": 70.39358179043246,
+      "height": 85,
       "angle": 0,
       "strokeColor": "#1e1e1e",
       "backgroundColor": "transparent",
@@ -2814,11 +2814,11 @@
         "type": 2
       },
       "seed": 27734496,
-      "version": 34,
-      "versionNonce": 1777759712,
+      "version": 164,
+      "versionNonce": 1916488736,
       "isDeleted": false,
       "boundElements": null,
-      "updated": 1716444407980,
+      "updated": 1716445026781,
       "link": null,
       "locked": false,
       "points": [
@@ -2827,8 +2827,8 @@
           0
         ],
         [
-          -64,
-          -90
+          -70.39358179043246,
+          -85
         ]
       ],
       "lastCommittedPoint": null,
