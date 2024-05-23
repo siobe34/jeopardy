@@ -9,16 +9,16 @@ A relatively simple and straightforward jeopardy game.
 - Custom points management (bonus category with customizable points)
 
 ## Development Notes
-- Connect to database
-- Dummy TRPC router to confirm db working as expected
-- DB schema
-- TRPC router for db schema
-- Implement auth
-- Protected routes
-- 5 jeopardy categories (MVP)
-- Each category has 5 questions - 100 to 500 points (MVP)
-- 2 Teams take turns
-- Stealing questions
-- Configurable points for each question
-- Configurable number of total categories
-- Configurable number of teams
+- [ ] Connect to database
+- [ ] Dummy TRPC router to confirm db working as expected
+- [ ] DB schema
+- [ ] TRPC router for db schema
+- [ ] Implement auth
+- [ ] Protected routes
+- [ ] 5 jeopardy categories (MVP)
+- [ ] Each category has 5 questions - 100 to 500 points (MVP)
+- [ ] 2 Teams take turns
+- [ ] Stealing questions
+- [ ] Configurable points for each question
+- [ ] Configurable number of total categories
+- [ ] Configurable number of teams
