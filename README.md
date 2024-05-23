@@ -9,8 +9,8 @@ A relatively simple and straightforward jeopardy game.
 - Custom points management (bonus category with customizable points)
 
 ## Development Notes
-- [ ] Connect to database
-- [ ] Dummy TRPC router to confirm db working as expected
+- [x] Connect to database
+- [x] Dummy TRPC router to confirm db working as expected
 - [ ] DB schema
 - [ ] TRPC router for db schema
 - [ ] Implement auth
