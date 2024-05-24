@@ -1,4 +1,5 @@
 import { userRouter } from "@/server/api/routers/user";
+import { boardRouter } from "@/server/api/routers/board";
 import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
 
 /**
@@ -8,6 +9,7 @@ import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
  */
 export const appRouter = createTRPCRouter({
   user: userRouter,
+  board: boardRouter,
 });
 
 // export type definition of API
