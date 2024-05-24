@@ -14,9 +14,9 @@ A relatively simple and straightforward jeopardy game.
 - [x] Connect to database
 - [x] Dummy TRPC router to confirm db working as expected
 - [x] DB schema
+- [x] Implement auth
+- [x] Protected routes
 - [ ] TRPC router for db schema
-- [ ] Implement auth
-- [ ] Protected routes
 - [ ] 5 jeopardy categories (MVP)
 - [ ] Each category has 5 questions - 100 to 500 points (MVP)
 - [ ] 2 Teams take turns
