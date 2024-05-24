@@ -3,6 +3,7 @@ import "@/styles/globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { GeistSans } from "geist/font/sans";
 
+import { SiteHeader } from "@/components/site-header";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TRPCReactProvider } from "@/trpc/react";
 
@@ -35,7 +36,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <header>Jeopardy</header>
+            <SiteHeader />
             <main>
               <TRPCReactProvider>{children}</TRPCReactProvider>
             </main>
