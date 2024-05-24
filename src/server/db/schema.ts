@@ -55,13 +55,13 @@ export const boardChallenges = createTable("boardChallenge", {
     .default("unsolved")
     .notNull(),
   question: text("question").notNull(),
-  answer: text("question").notNull(),
+  answer: text("answer").notNull(),
   points: integer("points").default(0).notNull(),
   createdAt: timestamp("created_at", { withTimezone: true })
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
   updatedAt: timestamp("updated_at", { withTimezone: true }),
-  boardId: integer("user_id").notNull(),
+  boardId: integer("board_id").notNull(),
 });
 
 export const boardChallengeRelations = relations(
@@ -80,7 +80,7 @@ export const games = createTable("game", {
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
   updatedAt: timestamp("updated_at", { withTimezone: true }),
-  boardId: integer("user_id").notNull(),
+  boardId: integer("board_id").notNull(),
 });
 
 export const gameRelations = relations(games, ({ one, many }) => ({
