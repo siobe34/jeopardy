@@ -3,6 +3,7 @@ import "@/styles/globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { GeistSans } from "geist/font/sans";
 
+import { ThemeProvider } from "@/components/theme-provider";
 import { TRPCReactProvider } from "@/trpc/react";
 
 // TODO: add metadata titles to all pages, favicon, site fonts, etc.
@@ -19,15 +20,26 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en" className={`${GeistSans.variable}`}>
+      <html
+        lang="en"
+        suppressHydrationWarning
+        className={`${GeistSans.variable}`}
+      >
         <body
           className="grid min-h-screen grid-rows-[minmax(5vh,auto)_1fr]"
           style={{ minHeight: "100dvh" }}
         >
-          <header>Jeopardy</header>
-          <main>
-            <TRPCReactProvider>{children}</TRPCReactProvider>
-          </main>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <header>Jeopardy</header>
+            <main>
+              <TRPCReactProvider>{children}</TRPCReactProvider>
+            </main>
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>
