@@ -1,7 +1,7 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
 // TODO: add protected routes here (regex patterns supported)
-const isProtectedRoute = createRouteMatcher([]);
+const isProtectedRoute = createRouteMatcher(["/jeopardy(.*)"]);
 
 export default clerkMiddleware((auth, req) => {
   // Redirect all unauthenticated requests to protected routes to the login page
