@@ -18,6 +18,7 @@ export const createTable = pgTableCreator((name) => `jeopardy_${name}`);
 
 export const users = createTable("user", {
   id: serial("id").primaryKey(),
+  clerkId: varchar("clerk_id", { length: 128 }).unique().notNull(),
   createdAt: timestamp("created_at", { withTimezone: true })
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
@@ -41,7 +42,7 @@ export const boards = createTable("board", {
 export const boardRelations = relations(boards, ({ one, many }) => ({
   owner: one(users, {
     fields: [boards.userId],
-    references: [users.id],
+    references: [users.clerkId],
   }),
   boardChallenges: many(boardChallenges),
   games: many(games),
