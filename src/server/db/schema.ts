@@ -31,7 +31,7 @@ export const userRelations = relations(users, ({ many }) => ({
 
 export const boards = createTable("board", {
   id: serial("id").primaryKey(),
-  name: varchar("name", { length: 128 }),
+  name: varchar("name", { length: 128 }).notNull(),
   createdAt: timestamp("created_at", { withTimezone: true })
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
