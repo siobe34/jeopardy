@@ -25,9 +25,10 @@ export const boardRouter = createTRPCRouter({
 
       return newBoard[0];
     }),
-  getByUser: privateProcedure.query(async ({ ctx }) => {
+  getAllByUser: privateProcedure.query(async ({ ctx }) => {
     const usersJeopardyBoards = await ctx.db
       .select({
+        id: boards.id,
         name: boards.name,
         userId: boards.userId,
         createdAt: boards.createdAt,
