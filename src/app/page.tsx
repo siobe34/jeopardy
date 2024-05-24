@@ -8,8 +8,10 @@ export default function Home() {
   if (userId) redirect("/jeopardy");
 
   return (
-    <SignedOut>
-      <SignInButton />
-    </SignedOut>
+    <section className="flex items-center justify-center">
+      <SignedOut>
+        <SignInButton />
+      </SignedOut>
+    </section>
   );
 }
