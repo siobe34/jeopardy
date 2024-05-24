@@ -1,11 +1,10 @@
-// Example model schema from the Drizzle docs
-// https://orm.drizzle.team/docs/sql-schema-declaration
-
-import { sql } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import {
   index,
+  integer,
   pgTableCreator,
   serial,
+  text,
   timestamp,
   varchar,
 } from "drizzle-orm/pg-core";
@@ -18,17 +17,101 @@ import {
  */
 export const createTable = pgTableCreator((name) => `jeopardy_${name}`);
 
-export const posts = createTable(
-  "post",
+export const users = createTable("user", {
+  id: serial("id").primaryKey(),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }),
+});
+
+export const userRelations = relations(users, ({ many }) => ({
+  boards: many(boards),
+}));
+
+export const boards = createTable(
+  "board",
   {
     id: serial("id").primaryKey(),
-    name: varchar("name", { length: 256 }),
+    name: varchar("name", { length: 128 }),
     createdAt: timestamp("created_at", { withTimezone: true })
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
-    updatedAt: timestamp("updatedAt", { withTimezone: true }),
+    updatedAt: timestamp("updated_at", { withTimezone: true }),
+    userId: integer("user_id").notNull(),
   },
-  (example) => ({
-    nameIndex: index("name_idx").on(example.name),
-  })
+  (table) => ({
+    nameIndex: index("name_idx").on(table.name),
+  }),
 );
+
+export const boardRelations = relations(boards, ({ one, many }) => ({
+  owner: one(users, {
+    fields: [boards.userId],
+    references: [users.id],
+  }),
+  boardChallenges: many(boardChallenges),
+  games: many(games),
+}));
+
+export const boardChallenges = createTable("boardChallenge", {
+  id: serial("id").primaryKey(),
+  category: varchar("category", { length: 128 }).notNull(),
+  status: varchar("status", { length: 10 })
+    .$type<"unsolved" | "solved">()
+    .default("unsolved")
+    .notNull(),
+  question: text("question").notNull(),
+  answer: text("question").notNull(),
+  points: integer("points").default(0).notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }),
+  boardId: integer("user_id").notNull(),
+});
+
+export const boardChallengeRelations = relations(
+  boardChallenges,
+  ({ one }) => ({
+    owner: one(boards, {
+      fields: [boardChallenges.boardId],
+      references: [boards.id],
+    }),
+  }),
+);
+
+export const games = createTable("game", {
+  id: serial("id").primaryKey(),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }),
+  boardId: integer("user_id").notNull(),
+});
+
+export const gameRelations = relations(games, ({ one, many }) => ({
+  owner: one(boards, {
+    fields: [games.boardId],
+    references: [boards.id],
+  }),
+  teams: many(teams),
+}));
+
+export const teams = createTable("teams", {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 128 }),
+  points: integer("points").default(0),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }),
+  gameId: integer("game_id").notNull(),
+});
+
+export const teamRelations = relations(teams, ({ one }) => ({
+  owner: one(games, {
+    fields: [teams.gameId],
+    references: [games.id],
+  }),
+}));
