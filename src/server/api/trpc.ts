@@ -86,3 +86,27 @@ export const createTRPCRouter = t.router;
  * are logged in.
  */
 export const publicProcedure = t.procedure;
+
+/**
+ * Private (authenticated) procedure
+ *
+ * This procedure guarantees the user accessing the tRPC API is authenticated, otherwise an Error is thrown and handled by Next.js error boundary.
+ */
+
+// Enforces that a user is authenticated, passes their respective userId to the tRPC context, otherwise throws an Error
+const enforceUserIsAuthed = t.middleware(async ({ ctx, next }) => {
+  if (ctx.userId) {
+    throw new TRPCError({
+      code: "UNAUTHORIZED",
+      message: "You don't appear to be signed in. Please sign in.",
+    });
+  }
+
+  return next({
+    ctx: {
+      userId: ctx.userId,
+    },
+  });
+});
+
+export const privateProcedure = t.procedure.use(enforceUserIsAuthed);
