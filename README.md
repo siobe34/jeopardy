@@ -17,7 +17,9 @@ A relatively simple and straightforward jeopardy game.
 - [x] Implement auth
 - [x] Protected routes
 - [x] TRPC router for boards
-- [ ] test board router with auth
+- [x] test board router with auth
+- [ ] add error boundaries
+- [ ] auth login/logout flows
 - [ ] 5 jeopardy categories (MVP)
 - [ ] Each category has 5 questions - 100 to 500 points (MVP)
 - [ ] 2 Teams take turns
