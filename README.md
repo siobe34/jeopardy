@@ -18,6 +18,7 @@ A relatively simple and straightforward jeopardy game.
 - [x] Protected routes
 - [x] TRPC router for boards
 - [x] test board router with auth
+- [x] init shadcn
 - [ ] basic themeing
 - [ ] add error boundaries
 - [ ] auth login/logout flows
