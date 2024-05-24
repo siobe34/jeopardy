@@ -1,6 +1,5 @@
 import { relations, sql } from "drizzle-orm";
 import {
-  index,
   integer,
   pgTableCreator,
   serial,
@@ -29,21 +28,15 @@ export const userRelations = relations(users, ({ many }) => ({
   boards: many(boards),
 }));
 
-export const boards = createTable(
-  "board",
-  {
-    id: serial("id").primaryKey(),
-    name: varchar("name", { length: 128 }),
-    createdAt: timestamp("created_at", { withTimezone: true })
-      .default(sql`CURRENT_TIMESTAMP`)
-      .notNull(),
-    updatedAt: timestamp("updated_at", { withTimezone: true }),
-    userId: integer("user_id").notNull(),
-  },
-  (table) => ({
-    nameIndex: index("name_idx").on(table.name),
-  }),
-);
+export const boards = createTable("board", {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 128 }),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }),
+  userId: varchar("user_id", { length: 128 }).notNull(),
+});
 
 export const boardRelations = relations(boards, ({ one, many }) => ({
   owner: one(users, {
