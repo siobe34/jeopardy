@@ -1,4 +1,4 @@
-import { CreateJeopardyForm } from "@/components/jeopardy-form";
+import { CreateJeopardyForm } from "@/components/jeopardy-form/form";
 
 export default function Page() {
   const questions = [
