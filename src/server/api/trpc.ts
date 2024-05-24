@@ -7,12 +7,11 @@
  * need to use are documented accordingly near the end.
  */
 import { TRPCError, initTRPC } from "@trpc/server";
-import { CreateNextContextOptions } from "@trpc/server/adapters/next";
 import superjson from "superjson";
 import { ZodError } from "zod";
 
 import { db } from "@/server/db";
-import { getAuth } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs/server";
 
 /**
  * 1. CONTEXT
@@ -26,8 +25,8 @@ import { getAuth } from "@clerk/nextjs/server";
  *
  * @see https://trpc.io/docs/server/context
  */
-export const createTRPCContext = async (opts: CreateNextContextOptions) => {
-  const { userId } = getAuth(opts.req);
+export const createTRPCContext = async (opts: { headers: Headers }) => {
+  const { userId } = auth();
 
   return {
     db,
@@ -95,7 +94,7 @@ export const publicProcedure = t.procedure;
 
 // Enforces that a user is authenticated, passes their respective userId to the tRPC context, otherwise throws an Error
 const enforceUserIsAuthed = t.middleware(async ({ ctx, next }) => {
-  if (ctx.userId) {
+  if (!ctx.userId) {
     throw new TRPCError({
       code: "UNAUTHORIZED",
       message: "You don't appear to be signed in. Please sign in.",
