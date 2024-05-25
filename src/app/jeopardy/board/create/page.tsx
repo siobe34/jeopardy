@@ -1,4 +1,5 @@
 import { CreateJeopardyForm } from "@/components/jeopardy-form/form";
+import { createJeopardyBoard } from "@/app/jeopardy/board/create/_actions/new-jeopardy";
 
 export default function Page() {
   const questions = [
@@ -20,7 +21,10 @@ export default function Page() {
   return (
     <>
       <h1>Create a Jeopardy</h1>
-      <CreateJeopardyForm categories={categories} />
+      <CreateJeopardyForm
+        categories={categories}
+        action={createJeopardyBoard}
+      />
     </>
   );
 }
