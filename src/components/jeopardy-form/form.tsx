@@ -1,4 +1,6 @@
-import { Button } from "@/components/ui/button";
+import { type FormHTMLAttributes } from "react";
+
+import { JeopardyFormSubmitButton } from "@/components/jeopardy-form/submit-button";
 import {
   Card,
   CardContent,
@@ -23,11 +25,18 @@ type JeopardyFormProps = {
     categoryNumber: number;
     questions: JeopardyFormQuestion[];
   }[];
+  action: FormHTMLAttributes<HTMLFormElement>["action"];
 };
 
-export const CreateJeopardyForm = ({ categories }: JeopardyFormProps) => {
+export const CreateJeopardyForm = ({
+  categories,
+  action,
+}: JeopardyFormProps) => {
   return (
-    <form className="flex flex-col gap-4 p-4 sm:grid sm:grid-cols-2">
+    <form
+      className="flex flex-col gap-4 p-4 sm:grid sm:grid-cols-2"
+      action={action}
+    >
       {categories.map((category) => (
         <JeopardyFormCategory
           key={category.categoryNumber}
@@ -35,13 +44,12 @@ export const CreateJeopardyForm = ({ categories }: JeopardyFormProps) => {
           questions={category.questions}
         />
       ))}
-      <Button
-        type="submit"
+      <JeopardyFormSubmitButton
         size="lg"
         className="max-w-fit place-self-center sm:col-span-2"
       >
         Create Jeopardy Board
-      </Button>
+      </JeopardyFormSubmitButton>
     </form>
   );
 };
