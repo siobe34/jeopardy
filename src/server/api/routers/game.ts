@@ -4,6 +4,7 @@ import { and, eq } from "drizzle-orm";
 import {
   createGameInput,
   getGameByBoardAndGameIdInput,
+  getGameByIdInput,
 } from "@/lib/zod-schemas/trpc-inputs";
 import { createTRPCRouter, privateProcedure } from "@/server/api/trpc";
 import { games } from "@/server/db/schema";
@@ -26,6 +27,29 @@ export const gameRouter = createTRPCRouter({
         });
 
       return newGame[0];
+    }),
+  getById: privateProcedure
+    .input(getGameByIdInput)
+    .query(async ({ ctx, input }) => {
+      const game = await ctx.db
+        .select({
+          id: games.id,
+          boardId: games.boardId,
+          createdAt: games.createdAt,
+          updatedAt: games.updatedAt,
+        })
+        .from(games)
+        .where(eq(games.id, input.gameId));
+
+      if (!game || !game[0]) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message:
+            "This game apparently does not exist in our databases. Please try creating a new game.",
+        });
+      }
+
+      return game[0];
     }),
   getByBoardAndGameId: privateProcedure
     .input(getGameByBoardAndGameIdInput)
