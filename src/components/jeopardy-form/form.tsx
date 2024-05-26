@@ -3,7 +3,7 @@
 import { createRef } from "react";
 import { useFormState } from "react-dom";
 
-type FormState = { message: string };
+export type FormState = { boardName: string; message: string };
 
 type JeopardyFormProps = {
   children: React.ReactNode;
@@ -17,7 +17,10 @@ export const CreateJeopardyForm = ({
   boardName,
 }: JeopardyFormProps) => {
   const ref = createRef<HTMLFormElement>();
-  const [state, formAction] = useFormState(action, { message: "" });
+  const [state, formAction] = useFormState(action, {
+    boardName,
+    message: "",
+  });
 
   return (
     <form
