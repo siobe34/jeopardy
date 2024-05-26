@@ -1,4 +1,4 @@
-import { JeopardyFormInputWithLabel } from "@/components/jeopardy-form/jeopardy-form-input-label";
+import { JeopardyFormInputWithLabel } from "@/components/jeopardy-create-form/jeopardy-form-input-label";
 
 export const JeopardyFormQuestion = ({
   categoryNumber,

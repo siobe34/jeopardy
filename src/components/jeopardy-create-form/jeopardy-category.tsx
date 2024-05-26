@@ -1,5 +1,5 @@
-import { JeopardyFormQuestion } from "@/components/jeopardy-form/jeopardy-category-question";
-import { JeopardyFormInputWithLabel } from "@/components/jeopardy-form/jeopardy-form-input-label";
+import { JeopardyFormQuestion } from "@/components/jeopardy-create-form/jeopardy-category-question";
+import { JeopardyFormInputWithLabel } from "@/components/jeopardy-create-form/jeopardy-form-input-label";
 import {
   Card,
   CardContent,

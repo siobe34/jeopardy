@@ -4,15 +4,7 @@ import { createRef, useEffect } from "react";
 import { useFormState } from "react-dom";
 import { toast } from "sonner";
 
-export type FormState = {
-  responseType: "success" | "error" | null;
-  serverResponses: string[] | null;
-};
-
-type JeopardyFormProps = {
-  children: React.ReactNode;
-  action: (prevState: FormState, formData: FormData) => Promise<FormState>;
-};
+import { type JeopardyFormProps } from "@/lib/global-types";
 
 export const CreateJeopardyForm = ({ children, action }: JeopardyFormProps) => {
   const ref = createRef<HTMLFormElement>();

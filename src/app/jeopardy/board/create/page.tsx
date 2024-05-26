@@ -1,10 +1,10 @@
 import { redirect } from "next/navigation";
 
 import { createJeopardyBoard } from "@/app/jeopardy/board/create/_actions/new-jeopardy";
-import { CreateJeopardyForm } from "@/components/jeopardy-form/form";
-import { JeopardyFormCategory } from "@/components/jeopardy-form/jeopardy-category";
-import { JeopardyFormInputWithLabel } from "@/components/jeopardy-form/jeopardy-form-input-label";
-import { JeopardyFormSubmitButton } from "@/components/jeopardy-form/submit-button";
+import { CreateJeopardyForm } from "@/components/jeopardy-create-form/form";
+import { JeopardyFormCategory } from "@/components/jeopardy-create-form/jeopardy-category";
+import { JeopardyFormInputWithLabel } from "@/components/jeopardy-create-form/jeopardy-form-input-label";
+import { JeopardyFormSubmitButton } from "@/components/jeopardy-create-form/submit-button";
 import { type SearchParams } from "@/lib/global-types";
 import { SITE_ROUTES } from "@/lib/site-routes";
 

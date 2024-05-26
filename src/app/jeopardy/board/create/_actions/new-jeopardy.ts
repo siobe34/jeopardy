@@ -2,7 +2,7 @@
 
 import { z } from "zod";
 
-import { type FormState } from "@/components/jeopardy-form/form";
+import { type FormState } from "@/lib/global-types";
 import { createBoardChallengeElement } from "@/lib/zod-schemas/trpc-inputs";
 import { api } from "@/trpc/server";
 
