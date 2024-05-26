@@ -53,6 +53,7 @@ export const createJeopardyBoard = async (
 
     return {
       boardName: newJeopardyBoard.name,
+      responseType: "success",
       serverResponses: ["New jeopardy board successfully created."],
     };
   }
@@ -61,6 +62,7 @@ export const createJeopardyBoard = async (
 
   return {
     boardName: "New Board",
+    responseType: "error",
     serverResponses: Array.from(new Set(errors.map((err) => err.message))),
   };
 };

@@ -5,7 +5,11 @@ import { createRef, useEffect } from "react";
 import { useFormState } from "react-dom";
 import { toast } from "sonner";
 
-export type FormState = { boardName: string; serverResponses: string[] | null };
+export type FormState = {
+  boardName: string;
+  responseType: "success" | "error" | null;
+  serverResponses: string[] | null;
+};
 
 type JeopardyFormProps = {
   children: React.ReactNode;
@@ -19,11 +23,22 @@ export const CreateJeopardyForm = ({ children, action }: JeopardyFormProps) => {
   const ref = createRef<HTMLFormElement>();
   const [state, formAction] = useFormState(action, {
     boardName,
+    responseType: null,
     serverResponses: null,
   });
 
   useEffect(() => {
-    state.serverResponses?.forEach((message) => toast(message));
+    if (state.responseType === "success") {
+      state.serverResponses?.forEach((message) => toast.success(message));
+    }
+
+    if (state.responseType === "error") {
+      state.serverResponses?.forEach((message) => toast.error(message));
+    }
+
+    if (state.responseType === null) {
+      state.serverResponses?.forEach((message) => toast(message));
+    }
   }, [state]);
 
   return (
