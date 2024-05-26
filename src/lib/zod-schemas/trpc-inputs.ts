@@ -27,6 +27,9 @@ export const getAllBoardChallengesByBoardInput = z.object({
   boardId: z.number(),
 });
 
-export const createGameInput = z.object({
+export const createGameInput = getAllBoardChallengesByBoardInput;
+
+export const getGameByBoardAndGameIdInput = z.object({
   boardId: z.number(),
+  gameId: z.number(),
 });
