@@ -53,15 +53,16 @@ export const createJeopardyBoard = async (
 
     return {
       boardName: newJeopardyBoard.name,
-      message: "New jeopardy board successfully created.",
+      serverResponses: ["New jeopardy board successfully created."],
     };
   }
 
-  // TODO
-  // return error msg if failed
   const { errors } = zodParser.error;
 
-  return { boardName: "", message: "error" };
+  return {
+    boardName: "New Board",
+    serverResponses: Array.from(new Set(errors.map((err) => err.message))),
+  };
 };
 
 const groupJeopardyQuestions = ({
