@@ -27,7 +27,7 @@ export const JeopardyFormCategory = ({
   questions,
 }: JeopardyFormCategoryProps) => {
   return (
-    <div className="flex flex-col gap-4 rounded-sm border p-4">
+    <div className="flex flex-col gap-4 rounded-sm p-4">
       <h2 className="text-2xl leading-none tracking-tight">
         Category {categoryNumber}
       </h2>
