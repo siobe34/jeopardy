@@ -2,6 +2,8 @@ import { redirect } from "next/navigation";
 
 import { createJeopardyBoard } from "@/app/jeopardy/board/create/_actions/new-jeopardy";
 import { CreateJeopardyForm } from "@/components/jeopardy-form/form";
+import { JeopardyFormCategory } from "@/components/jeopardy-form/jeopardy-category";
+import { JeopardyFormSubmitButton } from "@/components/jeopardy-form/submit-button";
 import { SITE_ROUTES } from "@/lib/site-routes";
 
 type SearchParams = Record<string, string | string[] | undefined>;
@@ -30,10 +32,21 @@ export default function Page({ searchParams }: { searchParams: SearchParams }) {
   return (
     <>
       <h1>Create a Jeopardy</h1>
-      <CreateJeopardyForm
-        categories={categories}
-        action={createJeopardyBoard}
-      />
+      <CreateJeopardyForm action={createJeopardyBoard}>
+        {categories.map((category) => (
+          <JeopardyFormCategory
+            key={category.categoryNumber}
+            categoryNumber={category.categoryNumber}
+            questions={category.questions}
+          />
+        ))}
+        <JeopardyFormSubmitButton
+          size="lg"
+          className="max-w-fit place-self-center sm:col-span-2"
+        >
+          Create Jeopardy Board
+        </JeopardyFormSubmitButton>
+      </CreateJeopardyForm>
     </>
   );
 }

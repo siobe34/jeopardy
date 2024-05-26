@@ -1,4 +1,3 @@
-import { type JeopardyFormProps } from "@/components/jeopardy-form/form";
 import { JeopardyFormQuestion } from "@/components/jeopardy-form/jeopardy-category-question";
 import { JeopardyFormInputWithLabel } from "@/components/jeopardy-form/jeopardy-form-input-label";
 import {
@@ -16,10 +15,17 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
+type JeopardyQuestionType = { questionNumber: number; points: number };
+
+type JeopardyFormCategoryProps = {
+  categoryNumber: number;
+  questions: JeopardyQuestionType[];
+};
+
 export const JeopardyFormCategory = ({
   categoryNumber,
   questions,
-}: JeopardyFormProps["categories"][number]) => {
+}: JeopardyFormCategoryProps) => {
   return (
     <div className="flex flex-col gap-4 rounded-sm border p-4">
       <h2 className="text-2xl leading-none tracking-tight">
