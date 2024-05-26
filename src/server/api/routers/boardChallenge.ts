@@ -1,5 +1,5 @@
 import { TRPCError } from "@trpc/server";
-import { and, eq } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 
 import {
   createBoardChallengeInput,
@@ -24,22 +24,21 @@ export const boardChallengeRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const jeopardyBoardChallenges = await ctx.db
         .select({
-          answer: boardChallenges.answer,
-          boardId: boardChallenges.boardId,
           category: boardChallenges.category,
-          createdAt: boardChallenges.createdAt,
-          id: boardChallenges.id,
-          points: boardChallenges.points,
-          question: boardChallenges.question,
-          status: boardChallenges.status,
-          updatedAt: boardChallenges.updatedAt,
+          id: sql`ARRAY_AGG(${boardChallenges.id})`,
+          boardId: sql`ARRAY_AGG(${boardChallenges.boardId})`,
+          question: sql`ARRAY_AGG(${boardChallenges.question})`,
+          answer: sql`ARRAY_AGG(${boardChallenges.answer})`,
+          points: sql`ARRAY_AGG(${boardChallenges.points})`,
+          status: sql`ARRAY_AGG(${boardChallenges.status})`,
         })
         .from(boardChallenges)
         .where(eq(boardChallenges.boardId, input.boardId))
         .innerJoin(
           boards,
           and(eq(boards.userId, ctx.userId), eq(boards.id, input.boardId)),
-        );
+        )
+        .groupBy(boardChallenges.category);
 
       if (!jeopardyBoardChallenges || jeopardyBoardChallenges.length === 0) {
         throw new TRPCError({
