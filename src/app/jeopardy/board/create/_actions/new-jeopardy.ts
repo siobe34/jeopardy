@@ -17,6 +17,8 @@ export const createJeopardyBoard = async (
   // TODO: remove manual throttling
   await new Promise((resolve) => setTimeout(resolve, 2000));
 
+  const boardName = formData.get("boardName");
+
   const data = Array.from(formData.entries()).filter((entry) =>
     entry[0].startsWith("category"),
   );
