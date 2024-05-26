@@ -1,5 +1,5 @@
-import { JeopardyFormQuestion } from "@/components/jeopardy-create-form/jeopardy-category-question";
-import { JeopardyFormInputWithLabel } from "@/components/jeopardy-create-form/jeopardy-form-input-label";
+import { CreateJeopardyFormChallenge } from "@/app/jeopardy/board/create/_components/create-jeopardy-form-challenge";
+import { JeopardyFormInputWithLabel } from "@/components/jeopardy-form/jeopardy-form-input-label";
 import {
   Card,
   CardContent,
@@ -22,7 +22,7 @@ type JeopardyFormCategoryProps = {
   questions: JeopardyQuestionType[];
 };
 
-export const JeopardyFormCategory = ({
+export const CreateJeopardyFormCategory = ({
   categoryNumber,
   questions,
 }: JeopardyFormCategoryProps) => {
@@ -51,7 +51,7 @@ export const JeopardyFormCategory = ({
               {questions.map((question, index) => (
                 <CarouselItem key={index}>
                   <div className="p-1">
-                    <JeopardyFormQuestion
+                    <CreateJeopardyFormChallenge
                       categoryNumber={categoryNumber}
                       points={question.points}
                       questionNumber={question.questionNumber}

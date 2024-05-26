@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation";
 
 import { createJeopardyBoard } from "@/app/jeopardy/board/create/_actions/new-jeopardy";
+import { CreateJeopardyFormCategory } from "@/app/jeopardy/board/create/_components/create-jeopardy-form-category";
 import { JeopardyForm } from "@/components/jeopardy-form/form";
-import { JeopardyFormCategory } from "@/components/jeopardy-form/jeopardy-category";
 import { JeopardyFormInputWithLabel } from "@/components/jeopardy-form/jeopardy-form-input-label";
 import { JeopardyFormSubmitButton } from "@/components/jeopardy-form/submit-button";
 import { type SearchParams } from "@/lib/global-types";
@@ -44,7 +44,7 @@ export default function Page({ searchParams }: { searchParams: SearchParams }) {
         defaultValue={boardName}
       />
       {categories.map((category) => (
-        <JeopardyFormCategory
+        <CreateJeopardyFormCategory
           key={category.categoryNumber}
           categoryNumber={category.categoryNumber}
           questions={category.questions}
