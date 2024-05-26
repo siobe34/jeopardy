@@ -9,7 +9,7 @@ import { SITE_ROUTES } from "@/lib/site-routes";
 type SearchParams = Record<string, string | string[] | undefined>;
 
 export default function Page({ searchParams }: { searchParams: SearchParams }) {
-  const boardName = searchParams.name;
+  const boardName = String(searchParams.name);
 
   if (!boardName) redirect(`${SITE_ROUTES.jeopardyCreate.path}?name=New Board`);
 
@@ -32,7 +32,7 @@ export default function Page({ searchParams }: { searchParams: SearchParams }) {
   return (
     <>
       <h1>Create a Jeopardy</h1>
-      <CreateJeopardyForm action={createJeopardyBoard}>
+      <CreateJeopardyForm action={createJeopardyBoard} boardName={boardName}>
         {categories.map((category) => (
           <JeopardyFormCategory
             key={category.categoryNumber}

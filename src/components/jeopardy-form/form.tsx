@@ -8,9 +8,14 @@ type FormState = { message: string };
 type JeopardyFormProps = {
   children: React.ReactNode;
   action: (prevState: FormState, formData: FormData) => Promise<FormState>;
+  boardName: string;
 };
 
-export const CreateJeopardyForm = ({ children, action }: JeopardyFormProps) => {
+export const CreateJeopardyForm = ({
+  children,
+  action,
+  boardName,
+}: JeopardyFormProps) => {
   const ref = createRef<HTMLFormElement>();
   const [state, formAction] = useFormState(action, { message: "" });
 
