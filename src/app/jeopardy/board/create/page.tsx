@@ -1,7 +1,16 @@
-import { CreateJeopardyForm } from "@/components/jeopardy-form/form";
-import { createJeopardyBoard } from "@/app/jeopardy/board/create/_actions/new-jeopardy";
+import { redirect } from "next/navigation";
 
-export default function Page() {
+import { createJeopardyBoard } from "@/app/jeopardy/board/create/_actions/new-jeopardy";
+import { CreateJeopardyForm } from "@/components/jeopardy-form/form";
+import { SITE_ROUTES } from "@/lib/site-routes";
+
+type SearchParams = Record<string, string | string[] | undefined>;
+
+export default function Page({ searchParams }: { searchParams: SearchParams }) {
+  const boardName = searchParams.name;
+
+  if (!boardName) redirect(`${SITE_ROUTES.jeopardyCreate.path}?name=New Board`);
+
   const questions = [
     { questionNumber: 1, points: 100 },
     { questionNumber: 2, points: 200 },
