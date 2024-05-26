@@ -9,9 +9,10 @@ import { SITE_ROUTES } from "@/lib/site-routes";
 type SearchParams = Record<string, string | string[] | undefined>;
 
 export default function Page({ searchParams }: { searchParams: SearchParams }) {
-  const boardName = String(searchParams.name);
+  const boardName = searchParams.name;
 
-  if (!boardName) redirect(`${SITE_ROUTES.jeopardyCreate.path}?name=New Board`);
+  if (!boardName || boardName === "" || typeof boardName !== "string")
+    redirect(`${SITE_ROUTES.jeopardyCreate.path}?name=New Board`);
 
   const questions = [
     { questionNumber: 1, points: 100 },
