@@ -7,24 +7,21 @@ export const createBoardInput = z.object({
   }),
 });
 
-export const createBoardChallengeInput = z.array(
-  z.object({
-    category: z
-      .string()
-      .min(1, {
-        message:
-          "The jeopardy category name must be at least 1 character long.",
-      }),
-    question: z.string().min(1, {
-      message: "The jeopardy question must be at least 1 character long.",
-    }),
-    answer: z.string().min(1, {
-      message: "The jeopardy answer must be at least 1 character long.",
-    }),
-    points: z.number().int().min(0),
-    boardId: z.number(),
+export const createBoardChallengeElement = z.object({
+  category: z.string().min(1, {
+    message: "The jeopardy category name must be at least 1 character long.",
   }),
-);
+  question: z.string().min(1, {
+    message: "The jeopardy question must be at least 1 character long.",
+  }),
+  answer: z.string().min(1, {
+    message: "The jeopardy answer must be at least 1 character long.",
+  }),
+  points: z.number().int().min(0),
+  boardId: z.number(),
+});
+
+export const createBoardChallengeInput = z.array(createBoardChallengeElement);
 
 export const getAllBoardChallengesByBoardInput = z.object({
   boardId: z.number(),
