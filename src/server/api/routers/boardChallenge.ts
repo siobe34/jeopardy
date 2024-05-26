@@ -25,12 +25,14 @@ export const boardChallengeRouter = createTRPCRouter({
       const jeopardyBoardChallenges = await ctx.db
         .select({
           category: boardChallenges.category,
-          id: sql`ARRAY_AGG(${boardChallenges.id})`,
-          boardId: sql`ARRAY_AGG(${boardChallenges.boardId})`,
-          question: sql`ARRAY_AGG(${boardChallenges.question})`,
-          answer: sql`ARRAY_AGG(${boardChallenges.answer})`,
-          points: sql`ARRAY_AGG(${boardChallenges.points})`,
-          status: sql`ARRAY_AGG(${boardChallenges.status})`,
+          id: sql<number[]>`ARRAY_AGG(${boardChallenges.id})`,
+          boardId: sql<number[]>`ARRAY_AGG(${boardChallenges.boardId})`,
+          question: sql<string[]>`ARRAY_AGG(${boardChallenges.question})`,
+          answer: sql<string[]>`ARRAY_AGG(${boardChallenges.answer})`,
+          points: sql<number[]>`ARRAY_AGG(${boardChallenges.points})`,
+          status: sql<
+            Array<"solved" | "unsolved">
+          >`ARRAY_AGG(${boardChallenges.status})`,
         })
         .from(boardChallenges)
         .where(eq(boardChallenges.boardId, input.boardId))
