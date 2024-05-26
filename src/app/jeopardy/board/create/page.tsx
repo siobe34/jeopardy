@@ -5,6 +5,7 @@ import { CreateJeopardyForm } from "@/components/jeopardy-form/form";
 import { JeopardyFormCategory } from "@/components/jeopardy-form/jeopardy-category";
 import { JeopardyFormSubmitButton } from "@/components/jeopardy-form/submit-button";
 import { SITE_ROUTES } from "@/lib/site-routes";
+import { JeopardyBoardName } from "@/components/jeopardy-form/jeopardy-board-name";
 
 type SearchParams = Record<string, string | string[] | undefined>;
 
@@ -32,7 +33,7 @@ export default function Page({ searchParams }: { searchParams: SearchParams }) {
 
   return (
     <>
-      <h1>Create a Jeopardy</h1>
+      <JeopardyBoardName className="w-fit self-center" />
       <CreateJeopardyForm action={createJeopardyBoard}>
         {categories.map((category) => (
           <JeopardyFormCategory
