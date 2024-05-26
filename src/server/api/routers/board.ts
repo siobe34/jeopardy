@@ -1,15 +1,8 @@
-import { z } from "zod";
-
-import { createTRPCRouter, privateProcedure } from "@/server/api/trpc";
-import { boards } from "@/server/db/schema";
 import { eq } from "drizzle-orm";
 
-const createBoardInput = z.object({
-  name: z.string().max(128, {
-    message:
-      "Board name is too long, sorry but please pick another board name.",
-  }),
-});
+import { createBoardInput } from "@/lib/zod-schemas/trpc-inputs";
+import { createTRPCRouter, privateProcedure } from "@/server/api/trpc";
+import { boards } from "@/server/db/schema";
 
 export const boardRouter = createTRPCRouter({
   create: privateProcedure
