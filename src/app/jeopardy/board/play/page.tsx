@@ -3,16 +3,26 @@ import { redirect } from "next/navigation";
 import { type SearchParams } from "@/lib/global-types";
 import { SITE_ROUTES } from "@/lib/site-routes";
 import { boardIdGameIdSchema } from "@/lib/zod-schemas/get-board-and-game-ids";
+import { api } from "@/trpc/server";
 
-export default function Page({ searchParams }: { searchParams: SearchParams }) {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) {
   const { boardId, gameId } = parseSearchParamsForIds(searchParams);
 
   if (!boardId) redirect(SITE_ROUTES.jeopardyDashboard.path);
 
   if (!gameId) {
-    // create a game
-    // redirect to gameId while including the boardId
+    const newGame = await api.game.create({ boardId });
+
+    redirect(
+      `${SITE_ROUTES.jeopardyPlay.path}?boardId=${boardId}&gameId=${newGame.id}`,
+    );
   }
+
+  // make sure game id actually exists
 
   return (
     // max height of 95vh is very "magic numbery" and almost certainly breaks down in some cases
