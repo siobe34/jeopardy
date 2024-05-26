@@ -34,6 +34,10 @@ export const getGameByBoardAndGameIdInput = z.object({
   gameId: z.number(),
 });
 
+export const getGameByIdInput = getGameByBoardAndGameIdInput.pick({
+  gameId: true,
+});
+
 export const createTeamInput = z.array(
   z.object({
     name: z.string(),
