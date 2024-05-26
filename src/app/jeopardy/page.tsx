@@ -13,7 +13,9 @@ export default async function Page() {
         <ul>
           {boards.map((board) => (
             <li key={board.id}>
-              <Link href={`${SITE_ROUTES.jeopardyPlay.path}?id=${board.id}`}>
+              <Link
+                href={`${SITE_ROUTES.jeopardyPlay.path}?boardId=${board.id}`}
+              >
                 {board.name}
               </Link>
             </li>
