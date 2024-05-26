@@ -1,3 +1,4 @@
+import { TRPCError } from "@trpc/server";
 import { eq } from "drizzle-orm";
 
 import { createBoardInput } from "@/lib/zod-schemas/trpc-inputs";
@@ -15,6 +16,12 @@ export const boardRouter = createTRPCRouter({
           userId: ctx.userId,
         })
         .returning();
+
+      if (!newBoard[0])
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Unexpected server error encountered, please try again.",
+        });
 
       return newBoard[0];
     }),
