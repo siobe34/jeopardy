@@ -12,7 +12,11 @@ export default async function Page() {
       <section>
         <ul>
           {boards.map((board) => (
-            <li key={board.id}>{board.name}</li>
+            <li key={board.id}>
+              <Link href={`${SITE_ROUTES.jeopardyPlay.path}?id=${board.id}`}>
+                {board.name}
+              </Link>
+            </li>
           ))}
         </ul>
       </section>
