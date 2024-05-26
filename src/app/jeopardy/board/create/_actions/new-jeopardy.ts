@@ -2,6 +2,7 @@
 
 import { z } from "zod";
 
+import { type FormState } from "@/components/jeopardy-form/form";
 import { createBoardChallengeElement } from "@/lib/zod-schemas/trpc-inputs";
 import { api } from "@/trpc/server";
 
@@ -10,9 +11,9 @@ const jeopardyCreationSchema = z.array(
 );
 
 export const createJeopardyBoard = async (
-  prevState: { message: string },
+  prevState: FormState,
   formData: FormData,
-) => {
+): Promise<FormState> => {
   // TODO: remove manual throttling
   await new Promise((resolve) => setTimeout(resolve, 2000));
 
@@ -51,7 +52,7 @@ export const createJeopardyBoard = async (
 
   // return error msg if failed
 
-  return { message: "success" };
+  return { boardName: "", message: "error" };
 };
 
 const groupJeopardyQuestions = ({
@@ -86,12 +87,4 @@ const groupJeopardyQuestions = ({
   }
 
   return challenges;
-};
-
-const saveJeopardyBoardToDatabase = ({
-  boardData,
-}: {
-  boardData: z.infer<typeof jeopardyCreationSchema>;
-}) => {
-  //
 };
