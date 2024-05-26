@@ -1,12 +1,10 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
 import { createRef, useEffect } from "react";
 import { useFormState } from "react-dom";
 import { toast } from "sonner";
 
 export type FormState = {
-  boardName: string;
   responseType: "success" | "error" | null;
   serverResponses: string[] | null;
 };
@@ -17,12 +15,8 @@ type JeopardyFormProps = {
 };
 
 export const CreateJeopardyForm = ({ children, action }: JeopardyFormProps) => {
-  const searchParams = useSearchParams();
-  const boardName = searchParams.get("name") ?? "New Board";
-
   const ref = createRef<HTMLFormElement>();
   const [state, formAction] = useFormState(action, {
-    boardName,
     responseType: null,
     serverResponses: null,
   });

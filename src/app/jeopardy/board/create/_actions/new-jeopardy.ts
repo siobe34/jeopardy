@@ -17,7 +17,7 @@ export const createJeopardyBoard = async (
   // TODO: remove manual throttling
   await new Promise((resolve) => setTimeout(resolve, 2000));
 
-  const boardName = formData.get("boardName");
+  const unsafeBoardName = formData.get("boardName");
 
   const data = Array.from(formData.entries()).filter((entry) =>
     entry[0].startsWith("category"),
@@ -41,11 +41,26 @@ export const createJeopardyBoard = async (
     })
     .flat();
 
+  const parseBoardName = z
+    .string()
+    .min(1, { message: "Jeopardy board name must be at least 1 character." })
+    .safeParse(unsafeBoardName);
+
+  if (!parseBoardName.success) {
+    const { errors } = parseBoardName.error;
+    return {
+      responseType: "error",
+      serverResponses: Array.from(new Set(errors.map((err) => err.message))),
+    };
+  }
+
+  const boardName = parseBoardName.data;
+
   const zodParser = jeopardyCreationSchema.safeParse(jeopardyBoardData);
 
   if (zodParser.success) {
     const newJeopardyBoard = await api.board.create({
-      name: prevState.boardName,
+      name: boardName,
     });
 
     const boardChallengesWithBoardId = zodParser.data.map((i) => ({
@@ -56,7 +71,6 @@ export const createJeopardyBoard = async (
     await api.boardChallenges.createMany(boardChallengesWithBoardId);
 
     return {
-      boardName: newJeopardyBoard.name,
       responseType: "success",
       serverResponses: ["New jeopardy board successfully created."],
     };
@@ -65,7 +79,6 @@ export const createJeopardyBoard = async (
   const { errors } = zodParser.error;
 
   return {
-    boardName: "New Board",
     responseType: "error",
     serverResponses: Array.from(new Set(errors.map((err) => err.message))),
   };
