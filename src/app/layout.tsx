@@ -5,6 +5,7 @@ import { GeistSans } from "geist/font/sans";
 
 import { SiteHeader } from "@/components/site-header";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
 import { TRPCReactProvider } from "@/trpc/react";
 
 // TODO: add metadata titles to all pages, favicon, site fonts, etc.
@@ -38,6 +39,7 @@ export default function RootLayout({
           >
             <SiteHeader />
             <TRPCReactProvider>{children}</TRPCReactProvider>
+            <Toaster position="top-right" richColors />
           </ThemeProvider>
         </body>
       </html>
