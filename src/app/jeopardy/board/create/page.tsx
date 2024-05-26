@@ -5,9 +5,8 @@ import { CreateJeopardyForm } from "@/components/jeopardy-form/form";
 import { JeopardyFormCategory } from "@/components/jeopardy-form/jeopardy-category";
 import { JeopardyFormInputWithLabel } from "@/components/jeopardy-form/jeopardy-form-input-label";
 import { JeopardyFormSubmitButton } from "@/components/jeopardy-form/submit-button";
+import { type SearchParams } from "@/lib/global-types";
 import { SITE_ROUTES } from "@/lib/site-routes";
-
-type SearchParams = Record<string, string | string[] | undefined>;
 
 export default function Page({ searchParams }: { searchParams: SearchParams }) {
   const boardName = searchParams.name;
