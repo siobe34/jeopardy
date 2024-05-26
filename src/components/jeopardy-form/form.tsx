@@ -1,21 +1,29 @@
 "use client";
 
-import { createRef, useEffect } from "react";
+import { useEffect } from "react";
 import { useFormState } from "react-dom";
 import { toast } from "sonner";
+
+import { cn } from "@/lib/cn";
 
 export type FormState = {
   responseType: "success" | "error" | null;
   serverResponses: string[] | null;
 };
 
-type JeopardyFormProps = {
-  children: React.ReactNode;
+type JeopardyFormProps = Omit<
+  React.FormHTMLAttributes<HTMLFormElement>,
+  "action"
+> & {
   action: (prevState: FormState, formData: FormData) => Promise<FormState>;
 };
 
-export const JeopardyForm = ({ children, action }: JeopardyFormProps) => {
-  const ref = createRef<HTMLFormElement>();
+export const JeopardyForm = ({
+  children,
+  className,
+  action,
+  ...props
+}: JeopardyFormProps) => {
   const [state, formAction] = useFormState(action, {
     responseType: null,
     serverResponses: null,
@@ -37,9 +45,12 @@ export const JeopardyForm = ({ children, action }: JeopardyFormProps) => {
 
   return (
     <form
-      ref={ref}
-      className="flex flex-col gap-4 p-4 sm:grid sm:grid-cols-2"
+      className={cn(
+        "flex flex-col gap-4 p-4 sm:grid sm:grid-cols-2",
+        className,
+      )}
       action={formAction}
+      {...props}
     >
       {children}
     </form>
