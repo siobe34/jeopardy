@@ -3,9 +3,9 @@ import { redirect } from "next/navigation";
 import { createJeopardyBoard } from "@/app/jeopardy/board/create/_actions/new-jeopardy";
 import { CreateJeopardyForm } from "@/components/jeopardy-form/form";
 import { JeopardyFormCategory } from "@/components/jeopardy-form/jeopardy-category";
+import { JeopardyFormInputWithLabel } from "@/components/jeopardy-form/jeopardy-form-input-label";
 import { JeopardyFormSubmitButton } from "@/components/jeopardy-form/submit-button";
 import { SITE_ROUTES } from "@/lib/site-routes";
-import { JeopardyBoardName } from "@/components/jeopardy-form/jeopardy-board-name";
 
 type SearchParams = Record<string, string | string[] | undefined>;
 
@@ -33,7 +33,17 @@ export default function Page({ searchParams }: { searchParams: SearchParams }) {
 
   return (
     <CreateJeopardyForm action={createJeopardyBoard}>
-      <JeopardyBoardName className="place-self-center sm:place-self-start" />
+      <JeopardyFormInputWithLabel
+        inputId="boardName"
+        className="w-fit place-self-center sm:place-self-start"
+        label={{
+          text: "Board Name",
+          className:
+            "place-self-center text-lg font-semibold leading-none tracking-tight sm:place-self-start",
+        }}
+        type="text"
+        defaultValue={boardName}
+      />
       {categories.map((category) => (
         <JeopardyFormCategory
           key={category.categoryNumber}
