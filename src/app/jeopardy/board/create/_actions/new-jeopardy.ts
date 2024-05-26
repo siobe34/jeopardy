@@ -1,5 +1,14 @@
 "use server";
 
+import { z } from "zod";
+
+import { createBoardChallengeElement } from "@/lib/zod-schemas/trpc-inputs";
+import { api } from "@/trpc/server";
+
+const jeopardyCreationSchema = z.array(
+  createBoardChallengeElement.omit({ boardId: true }),
+);
+
 export const createJeopardyBoard = async (
   prevState: { message: string },
   formData: FormData,
@@ -15,15 +24,25 @@ export const createJeopardyBoard = async (
     [32, 48],
     [48, 64],
     [64, 80],
-  ].map(([start, end]) => {
-    const [categoryName, ...categoryData] = data.slice(start, end);
-    return groupJeopardyQuestions({
-      categoryName: categoryName![1] as string,
-      categoryData,
-    });
-  });
+  ]
+    .map(([start, end]) => {
+      const [categoryName, ...categoryData] = data.slice(start, end);
+      return groupJeopardyQuestions({
+        categoryName: categoryName![1] as string,
+        categoryData,
+      });
+    })
+    .flat();
 
-  console.log(jeopardyBoardData);
+  const parsedData = jeopardyCreationSchema.safeParse(jeopardyBoardData);
+
+  if (parsedData.success) {
+    const createdJeopardyBoardId = saveJeopardyBoardToDatabase({
+      boardData: parsedData.data,
+    });
+
+    return { message: "New jeopardy board successfully created." };
+  }
 
   // TODO
   // parse data
@@ -67,4 +86,12 @@ const groupJeopardyQuestions = ({
   }
 
   return challenges;
+};
+
+const saveJeopardyBoardToDatabase = ({
+  boardData,
+}: {
+  boardData: z.infer<typeof jeopardyCreationSchema>;
+}) => {
+  //
 };
