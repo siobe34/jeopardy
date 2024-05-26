@@ -14,9 +14,6 @@ export const createJeopardyBoard = async (
   prevState: FormState,
   formData: FormData,
 ): Promise<FormState> => {
-  // TODO: remove manual throttling
-  await new Promise((resolve) => setTimeout(resolve, 2000));
-
   const unsafeBoardName = formData.get("boardName");
 
   const data = Array.from(formData.entries()).filter((entry) =>
