@@ -3,5 +3,7 @@ export default function JeopardyLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <main>{children}</main>;
+  return (
+    <main className="flex flex-col items-center justify-start">{children}</main>
+  );
 }
