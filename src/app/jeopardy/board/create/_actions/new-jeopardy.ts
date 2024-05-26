@@ -19,6 +19,7 @@ export const createJeopardyBoard = async (
 
   const data = Array.from(formData.entries());
 
+  // group questions/answers/points for all 5 jeopardy categories and respective category name
   const jeopardyBoardData = [
     [0, 16],
     [16, 32],
@@ -28,6 +29,7 @@ export const createJeopardyBoard = async (
   ]
     .map(([start, end]) => {
       const [categoryName, ...categoryData] = data.slice(start, end);
+
       return groupJeopardyQuestions({
         categoryName: categoryName![1] as string,
         categoryData,
@@ -35,22 +37,29 @@ export const createJeopardyBoard = async (
     })
     .flat();
 
-  const parsedData = jeopardyCreationSchema.safeParse(jeopardyBoardData);
+  const zodParser = jeopardyCreationSchema.safeParse(jeopardyBoardData);
 
-  if (parsedData.success) {
-    const createdJeopardyBoardId = saveJeopardyBoardToDatabase({
-      boardData: parsedData.data,
+  if (zodParser.success) {
+    const newJeopardyBoard = await api.board.create({
+      name: prevState.boardName,
     });
 
-    return { message: "New jeopardy board successfully created." };
+    const boardChallengesWithBoardId = zodParser.data.map((i) => ({
+      ...i,
+      boardId: newJeopardyBoard.id,
+    }));
+
+    await api.boardChallenges.createMany(boardChallengesWithBoardId);
+
+    return {
+      boardName: newJeopardyBoard.name,
+      message: "New jeopardy board successfully created.",
+    };
   }
 
   // TODO
-  // parse data
-  // create trpc router for jeopardy board challenges and create entries from parsed data
-  // return success message
-
   // return error msg if failed
+  const { errors } = zodParser.error;
 
   return { boardName: "", message: "error" };
 };
