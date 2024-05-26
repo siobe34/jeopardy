@@ -1,3 +1,4 @@
+import { TRPCError } from "@trpc/server";
 import { and, eq } from "drizzle-orm";
 
 import {
@@ -18,8 +19,6 @@ export const boardChallengeRouter = createTRPCRouter({
 
       return createdJeopardyBoardChallenges;
     }),
-
-  // Query all jeopardy questions for a particular jeopardy board for the signed in user
   getAllByBoard: privateProcedure
     .input(getAllBoardChallengesByBoardInput)
     .query(async ({ ctx, input }) => {
@@ -36,12 +35,19 @@ export const boardChallengeRouter = createTRPCRouter({
           updatedAt: boardChallenges.updatedAt,
         })
         .from(boardChallenges)
-        .where(
-          and(
-            eq(boards.userId, ctx.userId),
-            eq(boardChallenges.boardId, input.boardId),
-          ),
+        .where(eq(boardChallenges.boardId, input.boardId))
+        .innerJoin(
+          boards,
+          and(eq(boards.userId, ctx.userId), eq(boards.id, input.boardId)),
         );
+
+      if (!jeopardyBoardChallenges || jeopardyBoardChallenges.length === 0) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message:
+            "This jeopardy board could not be found. Maybe try creating a new one.",
+        });
+      }
 
       return jeopardyBoardChallenges;
     }),
