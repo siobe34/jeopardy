@@ -26,7 +26,7 @@ export const JeopardyFormQuestion = ({
         label={{ text: "Points" }}
         type="number"
         value={points}
-        disabled
+        readOnly
       />
     </div>
   );
