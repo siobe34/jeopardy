@@ -33,7 +33,7 @@ export default function Page({ searchParams }: { searchParams: SearchParams }) {
   return (
     <>
       <h1>Create a Jeopardy</h1>
-      <CreateJeopardyForm action={createJeopardyBoard} boardName={boardName}>
+      <CreateJeopardyForm action={createJeopardyBoard}>
         {categories.map((category) => (
           <JeopardyFormCategory
             key={category.categoryNumber}
