@@ -92,7 +92,7 @@ export const gameRelations = relations(games, ({ one, many }) => ({
   teams: many(teams),
 }));
 
-export const teams = createTable("teams", {
+export const teams = createTable("team", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 128 }),
   points: integer("points").default(0),
