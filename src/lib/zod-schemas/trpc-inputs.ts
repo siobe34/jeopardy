@@ -26,3 +26,7 @@ export const createBoardChallengeInput = z.array(createBoardChallengeElement);
 export const getAllBoardChallengesByBoardInput = z.object({
   boardId: z.number(),
 });
+
+export const createGameInput = z.object({
+  boardId: z.number(),
+});
