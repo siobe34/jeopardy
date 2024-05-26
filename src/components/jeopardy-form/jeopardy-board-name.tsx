@@ -24,10 +24,7 @@ export const JeopardyBoardName = (props: Props) => {
   }, [value]);
 
   return (
-    <div
-      className={cn("flex flex-col-reverse gap-1", props.className)}
-      {...props}
-    >
+    <div className={cn("flex flex-col gap-1", props.className)} {...props}>
       <Label
         htmlFor="boardName"
         className="text-2xl font-semibold leading-loose tracking-tight"

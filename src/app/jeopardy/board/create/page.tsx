@@ -32,23 +32,21 @@ export default function Page({ searchParams }: { searchParams: SearchParams }) {
   ];
 
   return (
-    <>
-      <JeopardyBoardName className="w-fit self-center" />
-      <CreateJeopardyForm action={createJeopardyBoard}>
-        {categories.map((category) => (
-          <JeopardyFormCategory
-            key={category.categoryNumber}
-            categoryNumber={category.categoryNumber}
-            questions={category.questions}
-          />
-        ))}
-        <JeopardyFormSubmitButton
-          size="lg"
-          className="max-w-fit place-self-center sm:col-span-2"
-        >
-          Create Jeopardy Board
-        </JeopardyFormSubmitButton>
-      </CreateJeopardyForm>
-    </>
+    <CreateJeopardyForm action={createJeopardyBoard}>
+      <JeopardyBoardName className="place-self-center sm:place-self-start" />
+      {categories.map((category) => (
+        <JeopardyFormCategory
+          key={category.categoryNumber}
+          categoryNumber={category.categoryNumber}
+          questions={category.questions}
+        />
+      ))}
+      <JeopardyFormSubmitButton
+        size="lg"
+        className="max-w-fit place-self-center sm:col-span-2"
+      >
+        Create Jeopardy Board
+      </JeopardyFormSubmitButton>
+    </CreateJeopardyForm>
   );
 }
