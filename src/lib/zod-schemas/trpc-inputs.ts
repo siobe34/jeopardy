@@ -33,3 +33,10 @@ export const getGameByBoardAndGameIdInput = z.object({
   boardId: z.number(),
   gameId: z.number(),
 });
+
+export const createTeamInput = z.array(
+  z.object({
+    name: z.string(),
+    gameId: z.number(),
+  }),
+);
