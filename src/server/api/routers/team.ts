@@ -2,6 +2,7 @@ import { TRPCError } from "@trpc/server";
 import { eq } from "drizzle-orm";
 
 import {
+  assignTeamPointsInput,
   createTeamInput,
   getTeamsByGameIdInput,
 } from "@/lib/zod-schemas/trpc-inputs";
@@ -38,5 +39,22 @@ export const teamRouter = createTRPCRouter({
         });
 
       return teamsForGame;
+    }),
+  assignPoints: privateProcedure
+    .input(assignTeamPointsInput)
+    .mutation(async ({ ctx, input }) => {
+      const updatedTeam = await ctx.db
+        .update(teams)
+        .set({ points: input.points })
+        .where(eq(teams.id, input.id))
+        .returning();
+
+      if (!updatedTeam || updatedTeam[0])
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Unexpected server error encountered, please try again.",
+        });
+
+      return updatedTeam[0];
     }),
 });
