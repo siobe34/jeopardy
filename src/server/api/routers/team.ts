@@ -1,6 +1,10 @@
 import { TRPCError } from "@trpc/server";
+import { eq } from "drizzle-orm";
 
-import { createTeamInput } from "@/lib/zod-schemas/trpc-inputs";
+import {
+  createTeamInput,
+  getTeamsByGameIdInput,
+} from "@/lib/zod-schemas/trpc-inputs";
 import { createTRPCRouter, privateProcedure } from "@/server/api/trpc";
 import { teams } from "@/server/db/schema";
 
@@ -17,5 +21,22 @@ export const teamRouter = createTRPCRouter({
         });
 
       return newTeams;
+    }),
+  getByGame: privateProcedure
+    .input(getTeamsByGameIdInput)
+    .query(async ({ ctx, input }) => {
+      const teamsForGame = await ctx.db
+        .select()
+        .from(teams)
+        .where(eq(teams.gameId, input.gameId));
+
+      if (!teamsForGame || teamsForGame.length === 0)
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message:
+            "No teams were found for this game which is unexpected. Please try to create a new game.",
+        });
+
+      return teamsForGame;
     }),
 });
