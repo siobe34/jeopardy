@@ -25,7 +25,15 @@ export default async function Page({ params }: { params: { id: string } }) {
             </CardHeader>
             <CardContent className="flex h-full flex-col items-center justify-around gap-8">
               {[0, 1, 2, 3, 4].map((i) => (
-                <JeopardyPlayQuestion key={i}>
+                <JeopardyPlayQuestion
+                  key={i}
+                  jeopardyData={{
+                    question: category.question[i]!,
+                    answer: category.answer[i]!,
+                    points: category.points[i]!,
+                    status: category.status[i]!,
+                  }}
+                >
                   {category.points[i]}
                 </JeopardyPlayQuestion>
               ))}

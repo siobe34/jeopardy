@@ -1,3 +1,5 @@
+import { type DialogContentProps } from "@radix-ui/react-dialog";
+
 import { Button, type ButtonProps } from "@/components/ui/button";
 import {
   Dialog,
@@ -9,25 +11,26 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/cn";
-import { type DialogContentProps } from "@radix-ui/react-dialog";
 
 type JeopardyData = {
   question: string;
   answer: string;
-  points: number[];
+  points: number;
+  status: "unsolved" | "solved";
 };
 
 type Props = {
   children: React.ReactNode;
   triggerButtonProps?: ButtonProps;
   dialogContentProps?: DialogContentProps;
-  jeopardyData?: JeopardyData;
+  jeopardyData: JeopardyData;
 };
 
 export const JeopardyPlayQuestion = ({
   children,
   triggerButtonProps,
   dialogContentProps,
+  jeopardyData,
 }: Props) => {
   return (
     <Dialog>
@@ -51,7 +54,9 @@ export const JeopardyPlayQuestion = ({
         {...dialogContentProps}
       >
         <DialogHeader>
-          <DialogTitle># of Points</DialogTitle>
+          <DialogTitle className="text-4xl">
+            {jeopardyData.points} Points
+          </DialogTitle>
           <DialogDescription>
             Click "Reveal Answer" to see the correct answer, no takebacks! Then
             click the name of the team that got it right to give them the
@@ -62,18 +67,18 @@ export const JeopardyPlayQuestion = ({
           <div
             className={cn(
               "absolute col-span-1 row-span-1 text-xl font-medium leading-snug tracking-tight",
-              "opacity-100",
+              jeopardyData.status === "unsolved" ? "opacity-100" : "opacity-0",
             )}
           >
-            Question goes here.
+            {jeopardyData.question}
           </div>
           <div
             className={cn(
               "absolute col-span-1 row-span-1 text-xl font-medium leading-snug tracking-tight",
-              "opacity-0",
+              jeopardyData.status === "solved" ? "opacity-100" : "opacity-0",
             )}
           >
-            Answer goes here.
+            {jeopardyData.answer}
           </div>
         </div>
         <Button className="w-fit place-self-center">Reveal Answer</Button>
