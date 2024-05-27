@@ -30,7 +30,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             </span>
           </Card>
         ))}
-        <GameControls />
+        <GameControls boardId={boardId} />
       </div>
       <div className="flex gap-4 overflow-x-auto p-4">
         {boardChallenges.map((category, index) => (
