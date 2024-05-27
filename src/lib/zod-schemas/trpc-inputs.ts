@@ -32,6 +32,8 @@ export const setBoardChallengeStatus = z.object({
   status: z.enum(["solved", "unsolved"]),
 });
 
+export const resetBoardChallengesInput = getAllBoardChallengesByBoardInput;
+
 export const createGameInput = getAllBoardChallengesByBoardInput;
 
 export const getGameByBoardAndGameIdInput = z.object({
