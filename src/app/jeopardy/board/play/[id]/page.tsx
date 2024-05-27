@@ -1,8 +1,8 @@
 import { z } from "zod";
 
-import { api } from "@/trpc/server";
+import { JeopardyPlayQuestion } from "@/app/jeopardy/board/play/[id]/_components/jeopardy-play-question";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { api } from "@/trpc/server";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const gameId = parseParamAndGetGameId(params);
@@ -25,10 +25,9 @@ export default async function Page({ params }: { params: { id: string } }) {
             </CardHeader>
             <CardContent className="flex h-full flex-col items-center justify-around gap-8">
               {[0, 1, 2, 3, 4].map((i) => (
-                // TODO: add modal to show the question when it's selected
-                <Button key={i} className="aspect-square h-16 rounded-full p-4">
+                <JeopardyPlayQuestion key={i}>
                   {category.points[i]}
-                </Button>
+                </JeopardyPlayQuestion>
               ))}
             </CardContent>
           </Card>
