@@ -9,6 +9,8 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   const { boardId } = await api.game.getById({ gameId });
 
+  const teams = await api.team.getByGame({ gameId });
+
   const boardChallenges = await api.boardChallenges.getAllByBoard({ boardId });
 
   return (
@@ -27,6 +29,7 @@ export default async function Page({ params }: { params: { id: string } }) {
               {[0, 1, 2, 3, 4].map((i) => (
                 <JeopardyPlayQuestion
                   key={i}
+                  teams={teams}
                   jeopardyData={{
                     id: category.id[i]!,
                     category: category.category,
