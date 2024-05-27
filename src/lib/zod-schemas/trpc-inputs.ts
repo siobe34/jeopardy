@@ -49,3 +49,5 @@ export const createTeamInput = z.array(
     gameId: z.number(),
   }),
 );
+
+export const getTeamsByGameIdInput = getGameByIdInput;
