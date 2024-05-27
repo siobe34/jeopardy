@@ -26,7 +26,9 @@ export const boardChallengeRouter = createTRPCRouter({
       const jeopardyBoardChallenges = await ctx.db
         .select({
           category: boardChallenges.category,
-          id: sql<number[]>`ARRAY_AGG(${boardChallenges.id})`,
+          id: sql<
+            number[]
+          >`ARRAY_AGG(${boardChallenges.id} ORDER BY ${boardChallenges.id})`,
           boardId: sql<number[]>`ARRAY_AGG(${boardChallenges.boardId})`,
           question: sql<string[]>`ARRAY_AGG(${boardChallenges.question})`,
           answer: sql<string[]>`ARRAY_AGG(${boardChallenges.answer})`,

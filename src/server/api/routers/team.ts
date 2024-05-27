@@ -1,5 +1,5 @@
 import { TRPCError } from "@trpc/server";
-import { eq } from "drizzle-orm";
+import { asc, eq } from "drizzle-orm";
 
 import {
   assignTeamPointsInput,
@@ -29,7 +29,8 @@ export const teamRouter = createTRPCRouter({
       const teamsForGame = await ctx.db
         .select()
         .from(teams)
-        .where(eq(teams.gameId, input.gameId));
+        .where(eq(teams.gameId, input.gameId))
+        .orderBy(asc(teams.id));
 
       if (!teamsForGame || teamsForGame.length === 0)
         throw new TRPCError({
