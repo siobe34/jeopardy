@@ -15,7 +15,21 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   return (
     <>
-      <div className="h-[150px] bg-blue-100">Show Teams and Points here</div>
+      <div className="flex h-[150px] flex-row items-center justify-start gap-6 p-4">
+        {teams.map((team) => (
+          <div
+            key={team.id}
+            className="flex h-full flex-1 flex-col items-center justify-around"
+          >
+            <span className="text-lg font-light leading-loose">
+              {team.name}
+            </span>
+            <span className="text-2xl font-semibold tracking-tight">
+              {team.points}
+            </span>
+          </div>
+        ))}
+      </div>
       <div className="flex gap-4 overflow-x-auto p-4">
         {boardChallenges.map((category, index) => (
           <Card
