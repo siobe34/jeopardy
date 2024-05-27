@@ -51,3 +51,8 @@ export const createTeamInput = z.array(
 );
 
 export const getTeamsByGameIdInput = getGameByIdInput;
+
+export const assignTeamPointsInput = z.object({
+  id: z.number(),
+  points: z.number().int().min(0),
+});
