@@ -4,6 +4,7 @@ import { and, eq, sql } from "drizzle-orm";
 import {
   createBoardChallengeInput,
   getAllBoardChallengesByBoardInput,
+  setBoardChallengeStatus,
 } from "@/lib/zod-schemas/trpc-inputs";
 import { createTRPCRouter, privateProcedure } from "@/server/api/trpc";
 import { boardChallenges, boards } from "@/server/db/schema";
@@ -51,5 +52,22 @@ export const boardChallengeRouter = createTRPCRouter({
       }
 
       return jeopardyBoardChallenges;
+    }),
+  changeStatus: privateProcedure
+    .input(setBoardChallengeStatus)
+    .mutation(async ({ ctx, input }) => {
+      const changedChallenge = await ctx.db
+        .update(boardChallenges)
+        .set({ status: input.status })
+        .where(eq(boardChallenges.id, input.id))
+        .returning();
+
+      if (!changedChallenge || !changedChallenge[0])
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Unexpected server error encountered, please try again.",
+        });
+
+      return changedChallenge[0];
     }),
 });
