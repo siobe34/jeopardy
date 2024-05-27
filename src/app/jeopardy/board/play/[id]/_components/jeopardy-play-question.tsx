@@ -1,10 +1,10 @@
 import { type DialogContentProps } from "@radix-ui/react-dialog";
 
 import { AssignTeamPoints } from "@/app/jeopardy/board/play/[id]/_components/assign-team-points";
+import { DialogWithRefresh } from "@/app/jeopardy/board/play/[id]/_components/dialog-with-refresh";
 import { JeopardyQuestionAnswerReveal } from "@/app/jeopardy/board/play/[id]/_components/jeopardy-question-answer-reveal";
 import { Button, type ButtonProps } from "@/components/ui/button";
 import {
-  Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -48,7 +48,7 @@ export const JeopardyPlayQuestion = ({
   teams,
 }: Props) => {
   return (
-    <Dialog>
+    <DialogWithRefresh>
       <DialogTrigger asChild>
         <Button
           className={cn(
@@ -93,6 +93,6 @@ export const JeopardyPlayQuestion = ({
           </div>
         </DialogFooter>
       </DialogContent>
-    </Dialog>
+    </DialogWithRefresh>
   );
 };
