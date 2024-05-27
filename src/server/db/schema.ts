@@ -94,8 +94,8 @@ export const gameRelations = relations(games, ({ one, many }) => ({
 
 export const teams = createTable("team", {
   id: serial("id").primaryKey(),
-  name: varchar("name", { length: 128 }),
-  points: integer("points").default(0),
+  name: varchar("name", { length: 128 }).notNull(),
+  points: integer("points").default(0).notNull(),
   createdAt: timestamp("created_at", { withTimezone: true })
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
