@@ -22,10 +22,10 @@ A relatively simple and straightforward jeopardy game.
 - [ ] basic themeing
 - [x] add error boundaries
 - [ ] auth login/logout flows
-- [ ] 5 jeopardy categories (MVP)
-- [ ] Each category has 5 questions - 100 to 500 points (MVP)
-- [ ] 2 Teams take turns
-- [ ] Stealing questions
+- [x] 5 jeopardy categories (MVP)
+- [x] Each category has 5 questions - 100 to 500 points (MVP)
+- [x] 2 Teams take turns
+- [x] Stealing questions
 - [ ] Configurable points for each question
 - [ ] Configurable number of total categories
 - [ ] Configurable number of teams
