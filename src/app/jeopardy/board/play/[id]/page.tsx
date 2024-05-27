@@ -17,7 +17,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     <>
       <div className="flex h-[150px] flex-row items-center justify-start gap-6 p-4">
         {teams.map((team) => (
-          <div
+          <Card
             key={team.id}
             className="flex h-full flex-1 flex-col items-center justify-around"
           >
@@ -25,9 +25,9 @@ export default async function Page({ params }: { params: { id: string } }) {
               {team.name}
             </span>
             <span className="text-2xl font-semibold tracking-tight">
-              {team.points}
+              {team.points} Points
             </span>
-          </div>
+          </Card>
         ))}
       </div>
       <div className="flex gap-4 overflow-x-auto p-4">
