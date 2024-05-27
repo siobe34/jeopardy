@@ -13,6 +13,7 @@ import {
 import { cn } from "@/lib/cn";
 
 type JeopardyData = {
+  category: string;
   question: string;
   answer: string;
   points: number;
@@ -55,7 +56,7 @@ export const JeopardyPlayQuestion = ({
       >
         <DialogHeader>
           <DialogTitle className="text-4xl">
-            {jeopardyData.points} Points
+            {jeopardyData.category}: {jeopardyData.points} Points
           </DialogTitle>
           <DialogDescription>
             Click "Reveal Answer" to see the correct answer, no takebacks! Then

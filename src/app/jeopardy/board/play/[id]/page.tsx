@@ -28,6 +28,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                 <JeopardyPlayQuestion
                   key={i}
                   jeopardyData={{
+                    category: category.category,
                     question: category.question[i]!,
                     answer: category.answer[i]!,
                     points: category.points[i]!,
