@@ -4,6 +4,7 @@ import { and, eq, sql } from "drizzle-orm";
 import {
   createBoardChallengeInput,
   getAllBoardChallengesByBoardInput,
+  resetBoardChallengesInput,
   setBoardChallengeStatus,
 } from "@/lib/zod-schemas/trpc-inputs";
 import { createTRPCRouter, privateProcedure } from "@/server/api/trpc";
@@ -71,5 +72,13 @@ export const boardChallengeRouter = createTRPCRouter({
         });
 
       return changedChallenge[0];
+    }),
+  resetBoard: privateProcedure
+    .input(resetBoardChallengesInput)
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db
+        .update(boardChallenges)
+        .set({ status: "unsolved" })
+        .where(eq(boardChallenges.boardId, input.boardId));
     }),
 });
