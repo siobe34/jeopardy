@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { GameControls } from "@/app/jeopardy/board/play/[id]/_components/game-controls";
 import { JeopardyPlayQuestion } from "@/app/jeopardy/board/play/[id]/_components/jeopardy-play-question";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { api } from "@/trpc/server";
@@ -29,6 +30,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             </span>
           </Card>
         ))}
+        <GameControls />
       </div>
       <div className="flex gap-4 overflow-x-auto p-4">
         {boardChallenges.map((category, index) => (
