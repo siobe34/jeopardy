@@ -1,27 +1,37 @@
 import Link from "next/link";
 
-import { api } from "@/trpc/server";
+import { buttonVariants } from "@/components/ui/button";
+import {
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { formatDate } from "@/lib/format-date";
 import { SITE_ROUTES } from "@/lib/site-routes";
+import { api } from "@/trpc/server";
 
 export default async function Page() {
   const boards = await api.board.getAllByUser();
   return (
-    <>
-      <h1>Jeopardy Boards</h1>
-      <Link href={SITE_ROUTES.jeopardyCreate.path}>Create a Jeopardy</Link>
-      <section>
-        <ul>
-          {boards.map((board) => (
-            <li key={board.id}>
-              <Link
-                href={`${SITE_ROUTES.jeopardyPlay.path}?boardId=${board.id}`}
-              >
-                {board.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
-    </>
+    <section className="flex flex-col gap-6 p-2 pt-8">
+      {boards.map((board) => (
+        <Card key={board.id} className="flex flex-row items-center">
+          <CardHeader>
+            <CardTitle>{board.name}</CardTitle>
+            <CardDescription>{formatDate(board.createdAt)}</CardDescription>
+          </CardHeader>
+          <CardFooter className="ml-auto p-6">
+            <Link
+              href={`${SITE_ROUTES.jeopardyPlay.path}?boardId=${board.id}`}
+              className={buttonVariants({ variant: "default" })}
+            >
+              Play!
+            </Link>
+          </CardFooter>
+        </Card>
+      ))}
+    </section>
   );
 }
