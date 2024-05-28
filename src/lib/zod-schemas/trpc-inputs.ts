@@ -58,3 +58,5 @@ export const assignTeamPointsInput = z.object({
   id: z.number(),
   points: z.number().int().min(0),
 });
+
+export const resetTeamPointsByGameInput = getGameByIdInput;
