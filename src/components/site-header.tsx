@@ -1,8 +1,9 @@
-import { SignedIn, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Link, { type LinkProps } from "next/link";
 
+import { Logo } from "@/components/logo";
+import { ThemeToggler } from "@/components/theme-toggler";
 import { SITE_ROUTES } from "@/lib/site-routes";
-import { Logo } from "./logo";
 
 export const SiteHeader = () => {
   return (
@@ -18,8 +19,12 @@ export const SiteHeader = () => {
           <SiteHeaderLink href={SITE_ROUTES.jeopardyDashboard.path}>
             All Boards
           </SiteHeaderLink>
+          <ThemeToggler />
           <UserButton />
         </SignedIn>
+        <SignedOut>
+          <ThemeToggler />
+        </SignedOut>
       </div>
     </header>
   );
