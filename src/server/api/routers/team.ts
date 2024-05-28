@@ -5,6 +5,7 @@ import {
   assignTeamPointsInput,
   createTeamInput,
   getTeamsByGameIdInput,
+  resetTeamPointsByGameInput,
 } from "@/lib/zod-schemas/trpc-inputs";
 import { createTRPCRouter, privateProcedure } from "@/server/api/trpc";
 import { teams } from "@/server/db/schema";
@@ -57,5 +58,13 @@ export const teamRouter = createTRPCRouter({
         });
 
       return updatedTeam[0];
+    }),
+  resetTeamPointsByGame: privateProcedure
+    .input(resetTeamPointsByGameInput)
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db
+        .update(teams)
+        .set({ points: 0 })
+        .where(eq(teams.gameId, input.gameId));
     }),
 });
