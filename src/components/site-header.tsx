@@ -6,7 +6,7 @@ import { Logo } from "./logo";
 
 export const SiteHeader = () => {
   return (
-    <header className="flex items-center justify-between gap-2 px-2">
+    <header className="mb-3 flex items-center justify-between gap-2 px-2 pb-3 pt-2 shadow-md">
       <Link href={SITE_ROUTES.home.path}>
         <Logo className="h-8 w-24" />
       </Link>
@@ -31,7 +31,10 @@ type SiteHeaderLinkProps = {
 
 const SiteHeaderLink = ({ children, ...props }: SiteHeaderLinkProps) => {
   return (
-    <Link {...props} className="rounded-md border-b px-4 py-2 hover:bg-accent">
+    <Link
+      {...props}
+      className="rounded-md px-4 py-2 text-foreground/80 transition-all hover:bg-accent hover:text-foreground"
+    >
       {children}
     </Link>
   );
