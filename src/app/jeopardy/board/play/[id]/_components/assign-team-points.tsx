@@ -11,7 +11,8 @@ export const AssignTeamPoints = ({
   points,
   name,
   addPoints,
-}: Team & { addPoints: number }) => {
+  isSolved,
+}: Team & { addPoints: number; isSolved: boolean }) => {
   const router = useRouter();
 
   const { mutate, isPending } = api.team.assignPoints.useMutation({
@@ -23,7 +24,7 @@ export const AssignTeamPoints = ({
   };
 
   return (
-    <Button onClick={handleClick} disabled={isPending}>
+    <Button onClick={handleClick} disabled={isSolved ? isPending : true}>
       {name}
     </Button>
   );

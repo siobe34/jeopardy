@@ -88,6 +88,7 @@ export const JeopardyPlayQuestion = ({
                 key={team.id}
                 {...team}
                 addPoints={jeopardyData.points}
+                isSolved={jeopardyData.status === "solved"}
               />
             ))}
           </div>
