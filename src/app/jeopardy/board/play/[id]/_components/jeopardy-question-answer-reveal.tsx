@@ -31,10 +31,10 @@ export const JeopardyQuestionAnswerReveal = ({
 
   return (
     <>
-      <div className="grid grid-cols-1 grid-rows-1 place-items-center">
+      <div className="relative flex items-center justify-center p-4 text-center">
         <div
           className={cn(
-            "absolute col-span-1 row-span-1 text-xl font-medium leading-snug tracking-tight",
+            "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-xl font-medium leading-snug tracking-tight",
             statusState === "unsolved" ? "opacity-100" : "opacity-0",
           )}
         >
@@ -42,7 +42,7 @@ export const JeopardyQuestionAnswerReveal = ({
         </div>
         <div
           className={cn(
-            "absolute col-span-1 row-span-1 text-xl font-medium leading-snug tracking-tight",
+            "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-xl font-medium leading-snug tracking-tight",
             statusState === "solved" ? "opacity-100" : "opacity-0",
           )}
         >
