@@ -43,19 +43,21 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${GeistSans.variable}`}
       >
-        <body
-          className="grid min-h-screen grid-rows-[minmax(5vh,auto)_1fr]"
-          style={{ minHeight: "100dvh" }}
-        >
+        <body>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
           >
-            <SiteHeader />
-            <TRPCReactProvider>{children}</TRPCReactProvider>
-            <Toaster position="top-right" closeButton richColors />
+            <div
+              className="grid min-h-screen grid-rows-[minmax(5vh,auto)_1fr]"
+              style={{ minHeight: "100dvh" }}
+            >
+              <SiteHeader />
+              <TRPCReactProvider>{children}</TRPCReactProvider>
+              <Toaster position="top-right" closeButton richColors />
+            </div>
           </ThemeProvider>
         </body>
       </html>
