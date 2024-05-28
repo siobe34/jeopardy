@@ -1,5 +1,5 @@
 import { SignedIn, UserButton } from "@clerk/nextjs";
-import Link from "next/link";
+import Link, { type LinkProps } from "next/link";
 
 import { SITE_ROUTES } from "@/lib/site-routes";
 
@@ -9,15 +9,27 @@ export const SiteHeader = () => {
       <Link href={SITE_ROUTES.home.path}>Jeopardy Logo</Link>
       <div className="flex items-center justify-center gap-8">
         <SignedIn>
-          <Link
-            href={SITE_ROUTES.jeopardyDashboard.path}
-            className="rounded-md border-b px-4 py-2 hover:bg-accent"
-          >
+          <SiteHeaderLink href={SITE_ROUTES.jeopardyCreate.path}>
+            Create New Board
+          </SiteHeaderLink>
+          <SiteHeaderLink href={SITE_ROUTES.jeopardyDashboard.path}>
             All Boards
-          </Link>
+          </SiteHeaderLink>
           <UserButton />
         </SignedIn>
       </div>
     </header>
+  );
+};
+
+type SiteHeaderLinkProps = {
+  children: React.ReactNode;
+} & LinkProps;
+
+const SiteHeaderLink = ({ children, ...props }: SiteHeaderLinkProps) => {
+  return (
+    <Link {...props} className="rounded-md border-b px-4 py-2 hover:bg-accent">
+      {children}
+    </Link>
   );
 };
