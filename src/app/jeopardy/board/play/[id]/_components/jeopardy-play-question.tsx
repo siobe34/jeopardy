@@ -81,7 +81,7 @@ export const JeopardyPlayQuestion = ({
         </DialogHeader>
         <JeopardyQuestionAnswerReveal {...jeopardyData} />
         <DialogFooter className="flex flex-col gap-4 place-self-center sm:flex-col">
-          <p>Assign points to a team.</p>
+          <p className="text-center">Assign points to a team.</p>
           <div className="flex flex-col gap-2 sm:flex-row">
             {teams.map((team) => (
               <AssignTeamPoints
