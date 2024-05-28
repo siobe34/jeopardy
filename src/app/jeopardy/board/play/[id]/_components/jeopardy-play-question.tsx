@@ -74,9 +74,9 @@ export const JeopardyPlayQuestion = ({
             {jeopardyData.category}: {jeopardyData.points} Points
           </DialogTitle>
           <DialogDescription>
-            Click "Reveal Answer" to see the correct answer, no takebacks! Then
-            click the name of the team that got it right to give them the
-            points.
+            Click the &quot;Reveal Answer&quot; button to see the correct
+            answer, no takebacks! Then click the name of the team that got it
+            right to give them the points.
           </DialogDescription>
         </DialogHeader>
         <JeopardyQuestionAnswerReveal {...jeopardyData} />
