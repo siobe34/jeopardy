@@ -7,7 +7,7 @@ import { SITE_ROUTES } from "@/lib/site-routes";
 
 export const SiteHeader = () => {
   return (
-    <header className="mb-3 flex items-center justify-between gap-2 px-2 pb-3 pt-2 shadow-md">
+    <header className="mb-3 flex items-center justify-between gap-2 bg-background px-2 pb-3 pt-2 shadow-md">
       <Link href={SITE_ROUTES.home.path}>
         <Logo className="h-8 w-24" />
       </Link>
