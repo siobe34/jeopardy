@@ -16,22 +16,30 @@ export default async function Page() {
   const boards = await api.board.getAllByUser();
   return (
     <section className="flex flex-col gap-6 p-2 pt-8">
-      {boards.map((board) => (
-        <Card key={board.id} className="flex flex-row items-center">
-          <CardHeader>
-            <CardTitle>{board.name}</CardTitle>
-            <CardDescription>{formatDate(board.createdAt)}</CardDescription>
-          </CardHeader>
-          <CardFooter className="ml-auto p-6">
-            <Link
-              href={`${SITE_ROUTES.jeopardyPlay.path}?boardId=${board.id}`}
-              className={buttonVariants({ variant: "default" })}
-            >
-              Play!
-            </Link>
-          </CardFooter>
-        </Card>
-      ))}
+      {boards.length === 0 ? (
+        <p className="text-lg leading-relaxed">
+          You have yet to create any jeopardy boards.
+          <br />
+          Go ahead and create one with the "Create New Board" button above!
+        </p>
+      ) : (
+        boards.map((board) => (
+          <Card key={board.id} className="flex flex-row items-center">
+            <CardHeader>
+              <CardTitle>{board.name}</CardTitle>
+              <CardDescription>{formatDate(board.createdAt)}</CardDescription>
+            </CardHeader>
+            <CardFooter className="ml-auto p-6">
+              <Link
+                href={`${SITE_ROUTES.jeopardyPlay.path}?boardId=${board.id}`}
+                className={buttonVariants({ variant: "default" })}
+              >
+                Play!
+              </Link>
+            </CardFooter>
+          </Card>
+        ))
+      )}
     </section>
   );
 }
