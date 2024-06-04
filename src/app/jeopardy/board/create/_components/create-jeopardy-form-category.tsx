@@ -1,13 +1,6 @@
 import { CreateJeopardyFormChallenge } from "@/app/jeopardy/board/create/_components/create-jeopardy-form-challenge";
 import { JeopardyFormInputWithLabel } from "@/components/jeopardy-form/jeopardy-form-input-label";
 import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
   Carousel,
   CarouselContent,
   CarouselItem,
@@ -39,34 +32,28 @@ export const CreateJeopardyFormCategory = ({
         }}
         type="text"
       />
-      <Card>
-        <Carousel className="w-full self-center">
-          <CardHeader>
-            <CardTitle className="text-lg font-semibold">
-              Category {categoryNumber} Questions
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <CarouselContent>
-              {questions.map((question, index) => (
-                <CarouselItem key={index}>
-                  <div className="p-1">
-                    <CreateJeopardyFormChallenge
-                      categoryNumber={categoryNumber}
-                      points={question.points}
-                      questionNumber={question.questionNumber}
-                    />
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-          </CardContent>
-          <CardFooter className="flex w-full justify-around pt-2">
-            <CarouselPrevious type="button" className="static" />
-            <CarouselNext type="button" className="static" />
-          </CardFooter>
-        </Carousel>
-      </Card>
+      <Carousel className="w-full self-center">
+        <h3 className="text-lg font-semibold">
+          Category {categoryNumber} Questions
+        </h3>
+        <CarouselContent>
+          {questions.map((question, index) => (
+            <CarouselItem key={index}>
+              <div className="p-1">
+                <CreateJeopardyFormChallenge
+                  categoryNumber={categoryNumber}
+                  points={question.points}
+                  questionNumber={question.questionNumber}
+                />
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <div className="flex w-full justify-around pt-8">
+          <CarouselPrevious type="button" className="static" />
+          <CarouselNext type="button" className="static" />
+        </div>
+      </Carousel>
     </div>
   );
 };
