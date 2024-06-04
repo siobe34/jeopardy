@@ -38,6 +38,7 @@ export default function RootLayout({
             appearance={{
               elements: {
                 card: "bg-background text-foreground",
+                footer: "[background:hsl(var(--background))] text-foreground",
                 input:
                   "flex h-10 w-full rounded-md !border border-input hover:!border hover:!border-input/80 focus:!border-input/80 bg-background text-foreground px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
                 formFieldLabel:
@@ -57,7 +58,6 @@ export default function RootLayout({
                   variant: "ghost",
                 }),
                 header: "hidden",
-                footer: "hidden",
               },
             }}
           >
