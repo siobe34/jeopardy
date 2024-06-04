@@ -5,6 +5,7 @@ import { CreateJeopardyFormCategory } from "@/app/jeopardy/board/create/_compone
 import { JeopardyForm } from "@/components/jeopardy-form/form";
 import { JeopardyFormInputWithLabel } from "@/components/jeopardy-form/jeopardy-form-input-label";
 import { JeopardyFormSubmitButton } from "@/components/jeopardy-form/submit-button";
+import { Card } from "@/components/ui/card";
 import { type SearchParams } from "@/lib/global-types";
 import { SITE_ROUTES } from "@/lib/site-routes";
 
@@ -32,23 +33,26 @@ export default function Page({ searchParams }: { searchParams: SearchParams }) {
 
   return (
     <JeopardyForm action={createJeopardyBoard}>
-      <JeopardyFormInputWithLabel
-        inputId="boardName"
-        className="w-fit place-self-center sm:place-self-start"
-        label={{
-          text: "Board Name",
-          className:
-            "place-self-center text-lg font-semibold leading-none tracking-tight sm:place-self-start",
-        }}
-        type="text"
-        defaultValue={boardName}
-      />
-      {categories.map((category) => (
-        <CreateJeopardyFormCategory
-          key={category.categoryNumber}
-          categoryNumber={category.categoryNumber}
-          questions={category.questions}
+      <Card className="h-fit p-6">
+        <JeopardyFormInputWithLabel
+          inputId="boardName"
+          className="w-fit place-self-center sm:place-self-start"
+          label={{
+            text: "Board Name",
+            className:
+              "place-self-center text-lg font-semibold leading-none tracking-tight sm:place-self-start",
+          }}
+          type="text"
+          defaultValue={boardName}
         />
+      </Card>
+      {categories.map((category) => (
+        <Card key={category.categoryNumber}>
+          <CreateJeopardyFormCategory
+            categoryNumber={category.categoryNumber}
+            questions={category.questions}
+          />
+        </Card>
       ))}
       <JeopardyFormSubmitButton
         size="lg"
