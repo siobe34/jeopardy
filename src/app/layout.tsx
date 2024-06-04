@@ -22,33 +22,44 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider
-      appearance={{
-        elements: {
-          header: "hidden",
-          footer: "hidden",
-          formButtonPrimary: buttonVariants({ variant: "default" }),
-          formFieldInputShowPasswordButton: buttonVariants({
-            variant: "ghost",
-          }),
-          formFieldLabel:
-            "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
-          input:
-            "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-        },
-      }}
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${GeistSans.variable}`}
     >
-      <html
-        lang="en"
-        suppressHydrationWarning
-        className={`${GeistSans.variable}`}
-      >
-        <body className="bg-base text-foreground">
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
+      <body className="bg-base text-foreground">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <ClerkProvider
+            appearance={{
+              elements: {
+                card: "bg-background text-foreground",
+                input:
+                  "flex h-10 w-full rounded-md !border border-input hover:!border hover:!border-input/80 focus:!border-input/80 bg-background text-foreground px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+                formFieldLabel:
+                  "text-sm font-medium text-foreground leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+                userButtonPopoverCard:
+                  "bg-background text-foreground shadow-lg shadow-foreground/20 border-t border-t-foreground/20",
+                userButtonPopoverMain:
+                  "bg-background text-foreground hover:text-foreground",
+                userButtonPopoverActions:
+                  "bg-background text-foreground hover:text-foreground",
+                userButtonPopoverActionButton:
+                  "bg-background text-foreground hover:text-foreground/85 relative before:absolute before:top-0 before:w-full before:border-border before:border-t",
+                userButtonPopoverFooter:
+                  "[background:hsl(var(--background))] text-foreground",
+                formButtonPrimary: buttonVariants({ variant: "default" }),
+                formFieldInputShowPasswordButton: buttonVariants({
+                  variant: "ghost",
+                }),
+                header: "hidden",
+                footer: "hidden",
+              },
+            }}
           >
             <div
               className="grid min-h-screen grid-rows-[minmax(5vh,auto)_1fr]"
@@ -58,9 +69,9 @@ export default function RootLayout({
               <TRPCReactProvider>{children}</TRPCReactProvider>
               <Toaster position="top-right" closeButton richColors />
             </div>
-          </ThemeProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+          </ClerkProvider>
+        </ThemeProvider>
+      </body>
+    </html>
   );
 }
