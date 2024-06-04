@@ -43,7 +43,7 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${GeistSans.variable}`}
       >
-        <body>
+        <body className="bg-base text-foreground">
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
