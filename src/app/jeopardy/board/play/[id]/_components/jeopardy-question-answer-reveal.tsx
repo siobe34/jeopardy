@@ -54,7 +54,8 @@ export const JeopardyQuestionAnswerReveal = ({
           "relative w-fit place-self-center",
           statusState === "solved" && "pointer-events-none opacity-0",
         )}
-        variant={isPending ? "outline" : "default"}
+        variant="secondary"
+        disabled={isPending}
         onClick={handleClick}
       >
         <span

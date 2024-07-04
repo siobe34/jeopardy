@@ -24,7 +24,11 @@ export const AssignTeamPoints = ({
   };
 
   return (
-    <Button onClick={handleClick} disabled={isSolved ? isPending : true}>
+    <Button
+      variant="secondary"
+      disabled={isSolved ? isPending : true}
+      onClick={handleClick}
+    >
       {name}
     </Button>
   );
