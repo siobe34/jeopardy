@@ -20,7 +20,8 @@ export default async function Page() {
         <p className="text-lg leading-relaxed">
           You have yet to create any jeopardy boards.
           <br />
-          Go ahead and create one with the "Create New Board" button above!
+          Go ahead and create one with the &quot;Create New Board&quot; button
+          above!
         </p>
       ) : (
         boards.map((board) => (
