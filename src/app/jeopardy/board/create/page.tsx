@@ -33,7 +33,7 @@ export default function Page({ searchParams }: { searchParams: SearchParams }) {
 
   return (
     <JeopardyForm action={createJeopardyBoard}>
-      <Card className="h-fit p-6">
+      <Card className="col-span-2 h-fit p-6">
         <JeopardyFormInputWithLabel
           inputId="boardName"
           className="w-fit place-self-center sm:place-self-start"
