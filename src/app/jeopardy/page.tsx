@@ -17,7 +17,7 @@ export default async function Page() {
   return (
     <section className="flex flex-col gap-6 p-2 pt-8">
       {boards.length === 0 ? (
-        <p className="text-lg leading-relaxed">
+        <p className="text-center text-lg leading-relaxed">
           You have yet to create any jeopardy boards.
           <br />
           Go ahead and create one with the &quot;Create New Board&quot; button
