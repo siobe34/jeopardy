@@ -52,7 +52,7 @@ export default function RootLayout({
                 userButtonPopoverActions:
                   "bg-background text-foreground hover:text-foreground",
                 userButtonPopoverActionButton:
-                  "bg-background text-foreground hover:text-foreground/85 relative before:absolute before:top-0 before:w-full before:border-border before:border-t",
+                  "bg-background text-foreground hover:text-foreground/85 relative before:absolute before:top-0 before:w-full before:border-muted before:border-t",
                 userButtonPopoverFooter:
                   "[background:hsl(var(--background))] text-foreground",
                 formButtonPrimary: buttonVariants({ variant: "default" }),
