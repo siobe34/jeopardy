@@ -43,6 +43,8 @@ export default function RootLayout({
                   "flex h-10 w-full rounded-md !border border-input hover:!border hover:!border-input/80 focus:!border-input/80 bg-background text-foreground px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
                 formFieldLabel:
                   "text-sm font-medium text-foreground leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+                footerActionText: "text-foreground",
+                footerActionLink: "text-muted-foreground",
                 userButtonPopoverCard:
                   "bg-background text-foreground shadow-lg shadow-foreground/20 border-t border-t-foreground/20",
                 userButtonPopoverMain:
@@ -57,6 +59,8 @@ export default function RootLayout({
                 formFieldInputShowPasswordButton: buttonVariants({
                   variant: "ghost",
                 }),
+                formFieldInputShowPasswordIcon:
+                  "text-muted-foreground hover:text-foreground",
                 header: "hidden",
               },
             }}
