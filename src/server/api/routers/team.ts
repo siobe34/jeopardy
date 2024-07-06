@@ -51,7 +51,7 @@ export const teamRouter = createTRPCRouter({
         .where(eq(teams.id, input.id))
         .returning();
 
-      if (!updatedTeam || updatedTeam[0])
+      if (!updatedTeam || !updatedTeam[0])
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Unexpected server error encountered, please try again.",
