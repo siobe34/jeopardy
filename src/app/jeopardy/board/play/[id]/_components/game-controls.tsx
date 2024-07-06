@@ -15,6 +15,7 @@ export const GameControls = ({
       <Button
         variant="ghost"
         className="border border-transparent bg-accent hover:border-border"
+        disabled={true} // TODO: implement this functionality then enable the button
       >
         Settings
       </Button>
