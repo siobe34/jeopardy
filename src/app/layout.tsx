@@ -46,7 +46,7 @@ export default function RootLayout({
                 footerActionText: "text-foreground",
                 footerActionLink: "text-muted-foreground",
                 userButtonPopoverCard:
-                  "bg-background text-foreground shadow-lg shadow-foreground/20 border-t border-t-foreground/20",
+                  "bg-background text-foreground border border-border shadow-[2px_10px_12px_hsl(var(--background)),-4px_-2px_12px_hsl(var(--base))]",
                 userButtonPopoverMain:
                   "bg-background text-foreground hover:text-foreground",
                 userButtonPopoverActions:
