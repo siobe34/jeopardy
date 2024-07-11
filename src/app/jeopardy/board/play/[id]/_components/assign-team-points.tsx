@@ -12,11 +12,19 @@ export const AssignTeamPoints = ({
   name,
   addPoints,
   isSolved,
-}: Team & { addPoints: number; isSolved: boolean }) => {
+  setDialogState,
+}: Team & {
+  addPoints: number;
+  isSolved: boolean;
+  setDialogState: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const router = useRouter();
 
   const { mutate, isPending } = api.team.assignPoints.useMutation({
-    onSuccess: () => router.refresh(),
+    onSuccess: () => {
+      router.refresh();
+      setDialogState(false);
+    },
   });
 
   const handleClick = () => {
@@ -25,7 +33,7 @@ export const AssignTeamPoints = ({
 
   return (
     <Button
-      variant="secondary"
+      variant="default"
       disabled={isSolved ? isPending : true}
       onClick={handleClick}
     >

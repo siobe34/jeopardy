@@ -1,10 +1,14 @@
+"use client";
+
+import { useState } from "react";
+
 import { type DialogContentProps } from "@radix-ui/react-dialog";
 
 import { AssignTeamPoints } from "@/app/jeopardy/board/play/[id]/_components/assign-team-points";
-import { DialogWithRefresh } from "@/app/jeopardy/board/play/[id]/_components/dialog-with-refresh";
 import { JeopardyQuestionAnswerReveal } from "@/app/jeopardy/board/play/[id]/_components/jeopardy-question-answer-reveal";
 import { Button, type ButtonProps } from "@/components/ui/button";
 import {
+  Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -47,8 +51,9 @@ export const JeopardyPlayQuestion = ({
   jeopardyData,
   teams,
 }: Props) => {
+  const [dialogState, setDialogState] = useState(false);
   return (
-    <DialogWithRefresh>
+    <Dialog open={dialogState} onOpenChange={setDialogState}>
       <DialogTrigger asChild>
         <Button
           className={cn(
@@ -89,11 +94,12 @@ export const JeopardyPlayQuestion = ({
                 {...team}
                 addPoints={jeopardyData.points}
                 isSolved={jeopardyData.status === "solved"}
+                setDialogState={setDialogState}
               />
             ))}
           </div>
         </DialogFooter>
       </DialogContent>
-    </DialogWithRefresh>
+    </Dialog>
   );
 };
