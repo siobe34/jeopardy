@@ -5,9 +5,9 @@ import { GeistSans } from "geist/font/sans";
 
 import { SiteHeader } from "@/components/site-header";
 import { ThemeProvider } from "@/components/theme-provider";
-import { buttonVariants } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/sonner";
 import { TRPCReactProvider } from "@/trpc/react";
+import clerkAppearance from "@/styles/clerk-appearance.json";
 
 // TODO: add metadata titles to all pages, favicon, site fonts, etc.
 export const metadata = {
@@ -34,38 +34,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ClerkProvider
-            appearance={{
-              elements: {
-                card: "bg-background text-foreground",
-                footer: "[background:hsl(var(--background))] text-foreground",
-                input:
-                  "flex h-10 w-full rounded-md !border border-input hover:!border hover:!border-input/80 focus:!border-input/80 bg-background text-foreground px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-                formFieldLabel:
-                  "text-sm font-medium text-foreground leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
-                footerActionText: "text-foreground",
-                footerActionLink:
-                  "text-muted-foreground hover:text-muted-foreground",
-                userButtonPopoverCard:
-                  "bg-background text-foreground border border-border shadow-[2px_10px_12px_hsl(var(--background)),-4px_-2px_12px_hsl(var(--base))]",
-                userButtonPopoverMain:
-                  "bg-background text-foreground hover:text-foreground",
-                userButtonPopoverActions:
-                  "bg-background text-foreground hover:text-foreground",
-                userButtonPopoverActionButton:
-                  "bg-background text-foreground hover:text-foreground/85 relative before:absolute before:top-0 before:w-full before:border-muted before:border-t",
-                userButtonPopoverFooter:
-                  "[background:hsl(var(--background))] text-foreground",
-                formButtonPrimary: `!shadow-none ${buttonVariants({ variant: "default" })}`,
-                formFieldInputShowPasswordButton: buttonVariants({
-                  variant: "ghost",
-                }),
-                formFieldInputShowPasswordIcon:
-                  "text-muted-foreground hover:text-foreground",
-                header: "hidden",
-              },
-            }}
-          >
+          <ClerkProvider appearance={clerkAppearance}>
             <div
               className="grid min-h-screen grid-rows-[minmax(5vh,auto)_1fr]"
               style={{ minHeight: "100dvh" }}
