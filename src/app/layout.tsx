@@ -1,9 +1,8 @@
 import "@/styles/globals.css";
 
 import { ClerkProvider } from "@clerk/nextjs";
-// TODO: pick site font
-import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
+import { Raleway } from "next/font/google";
 
 import { SiteHeader } from "@/components/site-header";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -58,17 +57,19 @@ export const metadata: Metadata = {
   manifest: "/favicon/site.webmanifest",
 };
 
+const font = Raleway({
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={`${GeistSans.variable}`}
-    >
+    <html lang="en" suppressHydrationWarning className={font.className}>
       <body className="bg-base text-foreground">
         <ThemeProvider
           attribute="class"
