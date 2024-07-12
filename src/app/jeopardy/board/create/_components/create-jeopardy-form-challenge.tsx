@@ -23,11 +23,11 @@ export const CreateJeopardyFormChallenge = ({
       />
       <JeopardyFormInputWithLabel
         inputId={`category_${categoryNumber}_points_${questionNumber}`}
-        label={{ text: "Points", className: "text-muted-foreground" }}
+        className="pointer-events-none opacity-50"
         type="number"
         value={points}
         readOnly
-        disabled
+        label={{ text: "Points", className: "text-muted-foreground" }}
       />
     </div>
   );
