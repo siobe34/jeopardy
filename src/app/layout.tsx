@@ -44,7 +44,8 @@ export default function RootLayout({
                 formFieldLabel:
                   "text-sm font-medium text-foreground leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
                 footerActionText: "text-foreground",
-                footerActionLink: "text-muted-foreground",
+                footerActionLink:
+                  "text-muted-foreground hover:text-muted-foreground",
                 userButtonPopoverCard:
                   "bg-background text-foreground border border-border shadow-[2px_10px_12px_hsl(var(--background)),-4px_-2px_12px_hsl(var(--base))]",
                 userButtonPopoverMain:
@@ -55,7 +56,7 @@ export default function RootLayout({
                   "bg-background text-foreground hover:text-foreground/85 relative before:absolute before:top-0 before:w-full before:border-muted before:border-t",
                 userButtonPopoverFooter:
                   "[background:hsl(var(--background))] text-foreground",
-                formButtonPrimary: buttonVariants({ variant: "default" }),
+                formButtonPrimary: `!shadow-none ${buttonVariants({ variant: "default" })}`,
                 formFieldInputShowPasswordButton: buttonVariants({
                   variant: "ghost",
                 }),
