@@ -6,6 +6,7 @@ import { GeistSans } from "geist/font/sans";
 import { SiteHeader } from "@/components/site-header";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { clerkAppearance } from "@/styles/clerk-appearance";
 import { TRPCReactProvider } from "@/trpc/react";
 import clerkAppearance from "@/styles/clerk-appearance.json";
 
