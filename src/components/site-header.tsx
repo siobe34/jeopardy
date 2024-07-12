@@ -7,11 +7,11 @@ import { SITE_ROUTES } from "@/lib/site-routes";
 
 export const SiteHeader = () => {
   return (
-    <header className="relative mb-40 flex items-center justify-between gap-2 bg-background px-2 pb-3 pt-2 shadow-md sm:mb-3">
+    <header className="relative mb-40 flex items-center justify-between gap-2 bg-secondary px-2 pb-3 pt-2 shadow-md sm:mb-3">
       <Link href={SITE_ROUTES.home.path}>
-        <Logo className="h-8 w-24 fill-secondary" />
+        <Logo className="h-8 w-24 fill-primary" />
       </Link>
-      <div className="absolute left-1/2 top-full flex w-full -translate-x-1/2 flex-col items-center justify-center border-b-2 bg-background sm:static sm:ml-auto sm:w-fit sm:translate-x-0 sm:flex-row sm:gap-8 sm:border-b-0 sm:pr-2">
+      <div className="absolute left-1/2 top-full flex w-full -translate-x-1/2 flex-col items-center justify-center border-b-2 bg-secondary sm:static sm:ml-auto sm:w-fit sm:translate-x-0 sm:flex-row sm:gap-8 sm:border-b-0 sm:pr-2">
         <SignedIn>
           <SiteHeaderLink href={SITE_ROUTES.jeopardyCreate.path}>
             Create New Board

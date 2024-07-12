@@ -20,7 +20,7 @@ export const CreateJeopardyFormCategory = ({
   questions,
 }: JeopardyFormCategoryProps) => {
   return (
-    <div className="flex flex-col gap-4 rounded-sm p-4">
+    <div className="flex flex-col gap-8 rounded-sm p-4">
       <h2 className="text-2xl leading-none tracking-tight">
         Category {categoryNumber}
       </h2>
@@ -50,8 +50,16 @@ export const CreateJeopardyFormCategory = ({
           ))}
         </CarouselContent>
         <div className="flex w-full justify-around pt-8">
-          <CarouselPrevious type="button" className="static" />
-          <CarouselNext type="button" className="static" />
+          <CarouselPrevious
+            type="button"
+            className="static"
+            variant="secondary"
+          />
+          <CarouselNext
+            type="button"
+            className="static"
+            variant="secondary"
+          />
         </div>
       </Carousel>
     </div>

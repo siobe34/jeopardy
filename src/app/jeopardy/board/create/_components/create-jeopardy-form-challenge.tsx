@@ -10,7 +10,7 @@ export const CreateJeopardyFormChallenge = ({
   points: number;
 }) => {
   return (
-    <div className="flex flex-col gap-2">
+    <div className="something flex flex-col gap-6">
       <JeopardyFormInputWithLabel
         inputId={`category_${categoryNumber}_question_${questionNumber}`}
         label={{ text: `Question ${questionNumber}` }}
@@ -23,10 +23,11 @@ export const CreateJeopardyFormChallenge = ({
       />
       <JeopardyFormInputWithLabel
         inputId={`category_${categoryNumber}_points_${questionNumber}`}
-        label={{ text: "Points" }}
+        label={{ text: "Points", className: "text-muted-foreground" }}
         type="number"
         value={points}
         readOnly
+        disabled
       />
     </div>
   );

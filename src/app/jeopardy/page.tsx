@@ -33,7 +33,7 @@ export default async function Page() {
             <CardFooter className="ml-auto p-6">
               <Link
                 href={`${SITE_ROUTES.jeopardyPlay.path}?boardId=${board.id}`}
-                className={buttonVariants({ variant: "secondary" })}
+                className={buttonVariants({ variant: "default" })}
               >
                 Play!
               </Link>

@@ -13,8 +13,7 @@ export const GameControls = ({
     <Card className="flex h-full flex-col items-center justify-around gap-2 p-4">
       <ResetGameButton gameId={gameId} boardId={boardId} />
       <Button
-        variant="ghost"
-        className="border border-transparent bg-accent hover:border-border"
+        variant="secondary"
         disabled={true} // TODO: implement this functionality then enable the button
       >
         Settings

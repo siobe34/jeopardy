@@ -15,7 +15,6 @@ export function JeopardyFormSubmitButton({
   return (
     <Button
       type="submit"
-      variant="secondary"
       className={cn(className, "relative")}
       disabled={pending}
       {...props}

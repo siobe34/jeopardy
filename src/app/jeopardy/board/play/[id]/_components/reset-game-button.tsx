@@ -46,12 +46,7 @@ export const ResetGameButton = ({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button
-          variant="ghost"
-          className="border border-transparent bg-accent hover:border-border"
-        >
-          Reset Game
-        </Button>
+        <Button variant="secondary">Reset Game</Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
