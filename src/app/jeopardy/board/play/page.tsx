@@ -1,3 +1,4 @@
+import { type Metadata } from "next";
 import { redirect } from "next/navigation";
 
 import { createJeopardyTeams } from "@/app/jeopardy/board/play/_actions/new-jeopardy-teams";
@@ -8,6 +9,10 @@ import { type SearchParams } from "@/lib/global-types";
 import { SITE_ROUTES } from "@/lib/site-routes";
 import { boardIdGameIdSchema } from "@/lib/zod-schemas/get-board-and-game-ids";
 import { api } from "@/trpc/server";
+
+export const metadata: Metadata = {
+  title: "New Game",
+};
 
 export default async function Page({
   searchParams,

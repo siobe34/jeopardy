@@ -1,3 +1,4 @@
+import { type Metadata } from "next";
 import Link from "next/link";
 
 import { buttonVariants } from "@/components/ui/button";
@@ -11,6 +12,10 @@ import {
 import { formatDate } from "@/lib/format-date";
 import { SITE_ROUTES } from "@/lib/site-routes";
 import { api } from "@/trpc/server";
+
+export const metadata: Metadata = {
+  title: "Dashboard",
+};
 
 export default async function Page() {
   const boards = await api.board.getAllByUser();

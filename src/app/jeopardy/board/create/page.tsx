@@ -1,3 +1,4 @@
+import { type Metadata } from "next";
 import { redirect } from "next/navigation";
 
 import { createJeopardyBoard } from "@/app/jeopardy/board/create/_actions/new-jeopardy";
@@ -8,6 +9,10 @@ import { JeopardyFormSubmitButton } from "@/components/jeopardy-form/submit-butt
 import { Card } from "@/components/ui/card";
 import { type SearchParams } from "@/lib/global-types";
 import { SITE_ROUTES } from "@/lib/site-routes";
+
+export const metadata: Metadata = {
+  title: "Create",
+};
 
 export default function Page({ searchParams }: { searchParams: SearchParams }) {
   const boardName = searchParams.name;
