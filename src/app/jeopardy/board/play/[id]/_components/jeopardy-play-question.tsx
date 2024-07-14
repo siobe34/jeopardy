@@ -59,6 +59,7 @@ export const JeopardyPlayQuestion = ({
           className={cn(
             "aspect-square h-16 rounded-full p-4",
             triggerButtonProps?.className,
+            jeopardyData.status === "solved" && "dark:brightness-50",
           )}
           variant={triggerButtonProps?.variant ?? "default"}
           disabled={jeopardyData.status === "solved"}
